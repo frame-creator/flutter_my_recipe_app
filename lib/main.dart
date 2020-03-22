@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recipe_app/pages/tab_page.dart';
 
 
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -14,7 +15,11 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         
-        primarySwatch: Colors.yellow,
+        primarySwatch: Colors.red,
+        fontFamily: 'Cute',
+        
+    
+       // textTheme: TextStyle(fontStyle: Cute),
       ),
       home: TabPage(),
       //MyHomePage(title: 'Flutter Demo Home Page'),
