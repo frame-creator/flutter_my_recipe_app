@@ -15,7 +15,7 @@ class _MyHomePageState extends State<MyHomePage> {
 bool _sideMoved = false;
 Size _size;
 double sideWidth;
-int _sideDuration = 1;
+int _sideDuration = 300;
 
 @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ int _sideDuration = 1;
        curve: Curves.easeIn,
        color:Colors.white,
        
-       duration: Duration(seconds: _sideDuration),
+       duration: Duration(milliseconds: _sideDuration),
        transform : Matrix4.translationValues (
        _sideMoved ? 0  : - sideWidth, 
        _sideMoved ? 0  : - 50, 
@@ -72,7 +72,8 @@ int _sideDuration = 1;
           
           Row(
             children: <Widget>[
-              SizedBox( height: 5,),
+              SizedBox( height: 20),
+              SizedBox( height: 20),
               /* IconButton(icon: Icon(Icons.arrow_back_ios),
               iconSize: 36,
               color: Colors.black54,
@@ -90,7 +91,7 @@ int _sideDuration = 1;
 
               child: Text('추천 레시피',
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.black87, fontSize: 25, fontWeight: FontWeight.bold
+              style: TextStyle(color: Colors.black87, fontSize: 40, fontWeight: FontWeight.bold
                ), 
         )   
            ),
@@ -98,7 +99,7 @@ int _sideDuration = 1;
            SizedBox(
               child: Text('인기 레시피',
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.black87, fontSize: 25, fontWeight: FontWeight.bold
+              style: TextStyle(color: Colors.black87, fontSize: 40, fontWeight: FontWeight.bold
                ),
              
              ),  
@@ -107,7 +108,7 @@ int _sideDuration = 1;
            SizedBox(
               child: Text('문의하기',
               textAlign: TextAlign.left,
-              style: TextStyle(color: Colors.black87, fontSize: 25, fontWeight: FontWeight.bold
+              style: TextStyle(color: Colors.black87, fontSize: 40, fontWeight: FontWeight.bold
                ), 
         )   
            ),
@@ -127,7 +128,7 @@ int _sideDuration = 1;
      return AnimatedContainer(
        curve: Curves.easeIn,
        color:  _sideMoved ?  Colors.red[50]: Colors.white,
-       duration: Duration(seconds: _sideDuration),
+       duration: Duration(milliseconds: _sideDuration),
        transform : Matrix4.translationValues (
        _sideMoved ?   sideWidth : 0, 
        0 ,  
@@ -140,7 +141,7 @@ int _sideDuration = 1;
             children: <Widget>[
               
                IconButton(icon: Icon(Icons.menu),
-              iconSize: 50,
+              iconSize: 36,
               color: Colors.black87,
               onPressed : () {
               setState (() {
@@ -156,10 +157,11 @@ int _sideDuration = 1;
             SizedBox(
                height: sideWidth
             ),
-            Center(child: Text('홈 화면')),
-        ],
+            Center(child: Text('홈 화면', style: TextStyle(color: Colors.black87, fontSize: 40)),
+       
         )
+        ]
      ),
-     );
+     ),);
    } 
    }

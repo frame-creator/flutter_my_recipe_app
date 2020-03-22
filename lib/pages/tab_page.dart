@@ -38,6 +38,7 @@ void _selectPage (int index) {
          color: Colors.red[50],
          backgroundColor: Colors.white,
          buttonBackgroundColor: Colors.red[100],
+       //  height: 70,
        //  selectedItemColor: Colors.red[200],
        //  unselectedItemColor: Colors.black45,
        //  currentIndex: _selectedPageIndex,
@@ -51,8 +52,12 @@ void _selectPage (int index) {
            Icon (Icons.collections_bookmark, size: 30),
         //   title: Text('북마크'),
           // )
-         ]
-         ,)
+         ],
+          animationDuration: Duration(
+             milliseconds: 200
+          ),
+          animationCurve: Curves.easeIn,
+         )
     );
   }
 }

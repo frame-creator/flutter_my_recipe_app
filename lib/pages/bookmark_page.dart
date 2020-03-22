@@ -11,7 +11,8 @@ class _BookmarkPageState extends State<BookmarkPage> {
   @override
   Widget build(BuildContext context) {
     return 
-       Center(child: Text('북마크 페이지') 
+       Center(child: Text('북마크 페이지', style: TextStyle(color: Colors.black87, fontSize: 40) 
+       )
        );
     
   }
