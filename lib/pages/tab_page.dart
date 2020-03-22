@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recipe_app/pages/bookmark_page.dart';
 import 'package:recipe_app/pages/myhome_page.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 
 class TabPage extends StatefulWidget {
@@ -32,22 +33,24 @@ void _selectPage (int index) {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _pages[_selectedPageIndex],
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: CurvedNavigationBar(
          onTap: _selectPage,
-         //backgroundColor: Colors.red[50],
-         selectedItemColor: Colors.red[200],
-         unselectedItemColor: Colors.black45,
-         currentIndex: _selectedPageIndex,
-         type: BottomNavigationBarType.shifting,
-         items: [
-           BottomNavigationBarItem(
-           icon: Icon(Icons.restaurant),
-           title: Text('레시피'),
-           ),
-           BottomNavigationBarItem(
-           icon: Icon(Icons.collections_bookmark),
-           title: Text('북마크'),
-           )
+         color: Colors.red[50],
+         backgroundColor: Colors.white,
+         buttonBackgroundColor: Colors.red[100],
+       //  selectedItemColor: Colors.red[200],
+       //  unselectedItemColor: Colors.black45,
+       //  currentIndex: _selectedPageIndex,
+       //  type: BottomNavigationBarType.shifting,
+         items: <Widget> [
+           //BottomNavigationBarItem(
+           Icon ( Icons.restaurant, size: 30),
+         //  title: Text('레시피'),
+          // ),
+           //BottomNavigationBarItem(
+           Icon (Icons.collections_bookmark, size: 30),
+        //   title: Text('북마크'),
+          // )
          ]
          ,)
     );
