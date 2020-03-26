@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+//import 'package:carousel_slider/carousel_slider.dart';
+import 'package:recipe_app/widgets/carouse_with_indicator.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -10,12 +12,24 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState(); }
 
 
-class _MyHomePageState extends State<MyHomePage> {
-
+class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
+AnimationController _animationController;
 bool _sideMoved = false;
 Size _size;
 double sideWidth;
 int _sideDuration = 300;
+
+@override 
+void initState() {
+  _animationController = AnimationController(vsync: this, duration: Duration(milliseconds: _sideDuration));
+super.initState();
+}
+
+@override
+void dispose() {
+  super.dispose();
+}
+
 
 @override
   Widget build(BuildContext context) {
@@ -140,10 +154,22 @@ int _sideDuration = 300;
           Row(
             children: <Widget>[
               
-               IconButton(icon: Icon(Icons.menu),
-              iconSize: 36,
-              color: Colors.black87,
+               IconButton(
+                 icon: AnimatedIcon(
+                    icon: AnimatedIcons.menu_close,
+                    progress: _animationController,
+                    size: 36,
+                    color: Colors.black87,
+
+                 //semanticLabel: 'Show menu',
+                 //iconSize: 36,
+                 //color: Colors.black87,
+                 ),
+                 
+              //iconSize: 36,
+             // color: Colors.black87,
               onPressed : () {
+                _sideMoved ? _animationController.reverse() : _animationController.forward();
               setState (() {
                 _sideMoved = !_sideMoved;
               });
@@ -155,13 +181,15 @@ int _sideDuration = 300;
             ],
             ),
             SizedBox(
-               height: sideWidth
+               height: 15
             ),
-            Center(child: Text('홈 화면', style: TextStyle(color: Colors.black87, fontSize: 40)),
-       
-        )
+            CarouseWithIndicator()
         ]
-     ),
-     ),);
+       
+        ),
+      )
+        
+     );
+    
    } 
    }

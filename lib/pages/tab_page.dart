@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:recipe_app/pages/bookmark_page.dart';
 import 'package:recipe_app/pages/myhome_page.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 
 
 class TabPage extends StatefulWidget {
@@ -49,7 +51,10 @@ void _selectPage (int index) {
          //  title: Text('레시피'),
           // ),
            //BottomNavigationBarItem(
-           Icon (Icons.collections_bookmark, size: 30),
+           Icon (
+             //FontAwesomeIcons.cookie,
+             Icons.collections_bookmark, 
+           size: 30),
         //   title: Text('북마크'),
           // )
          ],
