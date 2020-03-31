@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 //import 'package:carousel_slider/carousel_slider.dart';
 import 'package:recipe_app/widgets/carouse_with_indicator.dart';
+import 'package:recipe_app/widgets/animated_text.dart';
+//import 'package:recipe_app/firebase/firestore_provider.dart';
+//import 'package:recipe_app/widgets/pro_carouse.dart';
+
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -140,8 +144,9 @@ void dispose() {
 
    Widget _homeScreen() {
      return AnimatedContainer(
+       
        curve: Curves.easeIn,
-       color:  _sideMoved ?  Colors.red[50]: Colors.white,
+       color:  _sideMoved ?  Colors.red[200]: Colors.white,
        duration: Duration(milliseconds: _sideDuration),
        transform : Matrix4.translationValues (
        _sideMoved ?   sideWidth : 0, 
@@ -149,7 +154,54 @@ void dispose() {
       0, 
       ),
       child: SafeArea (
-        child:  Column(
+         
+        child: Stack (
+          children: <Widget>[ 
+        Container (
+          height: 430.0,
+          decoration: BoxDecoration(
+            borderRadius:
+            BorderRadius.only(bottomLeft: Radius.circular(50.0)),
+            color: 
+            //Color(0xFFFE8A7E)
+            //Color(0xFFFD7465)
+             Colors.red[50],
+          ))
+        ,
+          Container (
+          height: 300.0,
+          decoration: BoxDecoration(
+            borderRadius:
+            BorderRadius.only(bottomLeft: Radius.circular(75.0)),
+            color: 
+            //Color(0xFFFE8A7E)
+            //Color(0xFFFD7465)
+             Colors.white,
+          )),
+     /*   Container (
+          height: 160.0,
+          decoration: BoxDecoration(
+            borderRadius:
+            BorderRadius.only(bottomLeft: Radius.circular(75.0)),
+            color: 
+            Colors.pink[100]
+            //Color(0xFFFE8A7E)
+            //Color(0xFFFD7465)
+            //Colors.red[50],
+          )),
+          */
+        Container(
+          height: 140.0,
+          decoration: BoxDecoration(
+            borderRadius:
+            BorderRadius.only(bottomLeft: Radius.circular(75.0)),
+            color: 
+            //Color(0xFFFE8A7E)
+              Colors.red[200]
+          ))
+        ,
+        
+        Column(
         children: <Widget>[
           Row(
             children: <Widget>[
@@ -158,8 +210,8 @@ void dispose() {
                  icon: AnimatedIcon(
                     icon: AnimatedIcons.menu_close,
                     progress: _animationController,
-                    size: 36,
-                    color: Colors.black87,
+                    size: 26,
+                    color: Colors.white,
 
                  //semanticLabel: 'Show menu',
                  //iconSize: 36,
@@ -181,15 +233,41 @@ void dispose() {
             ],
             ),
             SizedBox(
-               height: 15
+               height: 20
             ),
-            CarouseWithIndicator()
-        ]
+            AnimatedText(),
+            SizedBox(
+               height: 55
+            ),
+            CarouseWithIndicator(),
+          // CarouselPage()
+
+           /* IconButton(
+                 icon: AnimatedIcon(
+                    icon: AnimatedIcons.menu_close,
+                    progress: _animationController,
+                    size: 26,
+                    color: Colors.black87,
+
+                 //semanticLabel: 'Show menu',
+                 //iconSize: 36,
+                 //color: Colors.black87,
+                 ),
+                 
+              //iconSize: 36,
+             // color: Colors.black87,
+              onPressed : () {
+                firestoreProvider.sendData().then(_) {
+                  print('a');
+                };
+              }
+            ) */
+            ]
        
         ),
-      )
+        ])
         
-     );
+     ),);
     
    } 
    }
