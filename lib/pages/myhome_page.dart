@@ -4,6 +4,7 @@ import 'package:recipe_app/widgets/carouse_with_indicator.dart';
 import 'package:recipe_app/widgets/animated_text.dart';
 //import 'package:recipe_app/firebase/firestore_provider.dart';
 //import 'package:recipe_app/widgets/pro_carouse.dart';
+import 'package:recipe_app/widgets/horizon_part.dart';
 
 
 class MyHomePage extends StatefulWidget {
@@ -44,6 +45,7 @@ void dispose() {
       body: 
       
          
+       
        Stack(
         
         children: <Widget>[
@@ -51,8 +53,11 @@ void dispose() {
           _homeScreen(),
           
         ],
+    
       ),
+      
 
+     
 
 
       
@@ -62,13 +67,14 @@ void dispose() {
              _sideMoved = !_sideMoved ;
             });
           }) */
-        );
+        );}
       
-  }
+  
   
       
    Widget _sideScreen() {
      return AnimatedContainer(
+       
        width : sideWidth,
        curve: Curves.easeIn,
        color:Colors.white,
@@ -137,10 +143,10 @@ void dispose() {
         
         )
       )
-     )
-     );
+     ),
+     );}
      
-   } 
+   
 
    Widget _homeScreen() {
      return AnimatedContainer(
@@ -153,9 +159,11 @@ void dispose() {
        0 ,  
       0, 
       ),
-      child: SafeArea (
-         
-        child: Stack (
+      child:
+        ListView(
+        scrollDirection: Axis.vertical,
+        children: <Widget>[ 
+        Stack (
           children: <Widget>[ 
         Container (
           height: 430.0,
@@ -240,6 +248,14 @@ void dispose() {
                height: 55
             ),
             CarouseWithIndicator(),
+            
+            HorizonPart(),
+            HorizonPart(),
+            HorizonPart()
+            
+
+            
+           ],
           // CarouselPage()
 
            /* IconButton(
@@ -262,12 +278,16 @@ void dispose() {
                 };
               }
             ) */
-            ]
+            
        
         ),
         ])
+      
         
-     ),);
+        ]
+        ),
+     
+           );
     
-   } 
-   }
+   }} 
+   
