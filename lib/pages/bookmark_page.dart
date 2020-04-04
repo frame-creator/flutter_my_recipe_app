@@ -1,66 +1,8 @@
- import 'package:carousel_slider/carousel_slider.dart';
- import 'package:flutter/material.dart';
 
-final List<String> imgList = [
-  'https://images.unsplash.com/photo-1556909211-36987daf7b4d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-  'https://images.unsplash.com/photo-1543362906-acfc16c67564?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1400&q=60',
-  'https://images.unsplash.com/photo-1583224964978-2257b960c3d3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-  'https://images.unsplash.com/photo-1564834724105-918b73d1b9e0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1400&q=60',
-  'https://images.unsplash.com/photo-1506368249639-73a05d6f6488?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-  'https://images.unsplash.com/photo-1524240293321-31b1b9a207af?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-];
-
-
-final Widget placeholder = Container(color: Colors.red[50]);
-
-final List child = map<Widget>(
-  imgList,
-  (index, i) {
-    return Container(
-      margin: EdgeInsets.all(5.0),
-      child: ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(5.0)),
-        child: Stack(children: <Widget>[
-          Image.network(i, fit: BoxFit.cover, width: 1000.0),
-          Positioned(
-            bottom: 0.0,
-            left: 0.0,
-            right: 0.0,
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Color.fromARGB(200, 0, 0, 0), Color.fromARGB(0, 0, 0, 0)],
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                ),
-              ),
-              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-              child: Text(
-                '',
-                //'You are what you eat',
-                //'No. $index image',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 40.0,
-                  //fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-        ]),
-      ),
-    );
-  },
-).toList();
-
-List<T> map<T>(List list, Function handler) {
-  List<T> result = [];
-  for (var i = 0; i < list.length; i++) {
-    result.add(handler(i, list[i]));
-  }
-
-  return result;
-}
+import 'package:flutter/material.dart';
+//import 'package:recipe_app/widgets/horizon_part.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:recipe_app/pages/detail_page.dart';
 
 class BookmarkPage extends StatefulWidget {
   BookmarkPage({Key key}) : super(key: key);
@@ -69,314 +11,292 @@ class BookmarkPage extends StatefulWidget {
   _BookmarkPageState createState() => _BookmarkPageState();
 }
 
+//final DocumentSnapshot document;
+//HorizonPart(this.document);
+
 class _BookmarkPageState extends State<BookmarkPage> {
 
-   int _current = 0;
+   
   @override
 
   Widget build(BuildContext context) {
-    return 
+    return HorizonPart();
      
-      Column(children: [
-      CarouselSlider(
-        items: child,
-        autoPlay: true,
-        enlargeCenterPage: true,
-        aspectRatio: 2.0,
-        onPageChanged: (index) {
-          setState(() {
-            _current = index;
-          });
-        },
-      ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: map<Widget>(
-          imgList,
-          (index, url) {
-            return Container(
-              width: 8.0,
-              height: 8.0,
-              margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: _current == index
-                      ? Colors.red[300]
-                      //fromRGBO(0, 0, 0, 0.9)
-                      : Colors.red[100]
-                      //fromRGBO(0, 0, 0, 0.4)),
-            ),);
-          },
-        ),
-      ),
-    ]);
+     
+                }
+    
   }
+
+
+class HorizonPart extends StatefulWidget {
+  HorizonPart({Key key}) : super(key: key);
+
+  @override
+  _HorizonPartState createState() => _HorizonPartState();
 }
 
-/*
 
-class CarouselDemo extends StatelessWidget {
+
+class _HorizonPartState extends State<HorizonPart> {
   @override
   Widget build(BuildContext context) {
-    //Manually operated Carousel
-    final CarouselSlider manualCarouselDemo = CarouselSlider(
-      items: child,
-      autoPlay: false,
-      enlargeCenterPage: true,
-      viewportFraction: 0.9,
-      aspectRatio: 2.0,
-    );
-
-    //Auto playing carousel
-    final CarouselSlider autoPlayDemo = CarouselSlider(
-      viewportFraction: 0.9,
-      aspectRatio: 2.0,
-      autoPlay: true,
-      enlargeCenterPage: true,
-      items: imgList.map(
-        (url) {
-          return Container(
-            margin: EdgeInsets.all(5.0),
-            child: ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              child: Image.network(
-                url,
-                fit: BoxFit.cover,
-                width: 1000.0,
+ //   return StreamBuilder<QuerySnapshot>(
+ //    stream: Firestore.instance.collection('posts').snapshots(),
+    
+ //   builder: (context, snapshot) { 
+      return Scaffold (
+        body:
+  /*   Column( children: <Widget> [Padding(
+            padding: const EdgeInsets.all(30.0),
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text('Most Popular',
+                      style: TextStyle(
+                   //     fontFamily: 'Opensans',
+                        fontSize: 50.0,
+                      )),
+                  Icon(Icons.more_horiz, color: Colors.black)
+                ],
               ),
             ),
-          );
-        },
-      ).toList(),
-    );
+    ), */
+      //    Padding(
+       //    padding: const EdgeInsets.only(left: 15.0),
+       //     child: Container(
+       //      height: 300.0,
+              
 
-    //Button controlled carousel
-    Widget buttonDemo() {
-      final basicSlider = CarouselSlider(
-        items: child,
-        autoPlay: false,
-        enlargeCenterPage: true,
-        viewportFraction: 0.9,
-        aspectRatio: 2.0,
-        initialPage: 2,
-      );
-      return Column(children: [
-        basicSlider,
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Flexible(
-            child: RaisedButton(
-              onPressed: () => basicSlider.previousPage(
-                  duration: Duration(milliseconds: 300), curve: Curves.linear),
-              child: Text('←'),
-            ),
-          ),
-          Flexible(
-            child: RaisedButton(
-              onPressed: () => basicSlider.nextPage(
-                  duration: Duration(milliseconds: 300), curve: Curves.linear),
-              child: Text('→'),
-            ),
-          ),
-          ...Iterable<int>.generate(imgList.length).map(
-            (int pageIndex) => Flexible(
-              child: RaisedButton(
-                onPressed: () => basicSlider.animateToPage(pageIndex,
-                    duration: Duration(milliseconds: 300),
-                    curve: Curves.linear),
-                child: Text("$pageIndex"),
+        //      child: 
+              StreamBuilder<QuerySnapshot> (
+              stream: Firestore.instance.collection('posts').snapshots(),
+    
+               builder: (context, snapshot) { 
+               return 
+              // ListView.builder(
+              //  scrollDirection = Axis.horizontal,
+              //  itemcount: snapshot.data.documents.length,
+              //  itemBuilder(BuildContext context, int index)
+                ListView.builder(
+                //  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+               //     crossAxisCount: 1,
+                  //  childAspectRatio: 1.0,
+                  //  mainAxisSpacing: 1.0,
+                  //  crossAxisSpacing: 1.0
+              //    ),
+                 physics: PageScrollPhysics(), // this is what you are looking for
+                 scrollDirection: Axis.horizontal,
+                //scrollDirection: Axis.vertical,
+                    itemCount: snapshot.data.documents.length,
+                    
+                    itemBuilder:(BuildContext context, int index){
+                    //  DocumentSnapshot recipepost = snapshot.data.documents[index];
+                    if (!snapshot.hasData) {
+                   return Center(child :Text ('로딩중'));
+                    }
+                    
+           //     List<DocumentSnapshot> get documents
+
+                  return _buildCard(context, snapshot.data.documents[index]);
+                        
+
+                  
+                  
+                  }
+              /*  scrollDirection: Axis.horizontal,
+                children: <Widget>[
+                  _buildCard(
+                      '시금치나물', '4.1','https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg','https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg'),
+                      //'assets/mountain.jpg'),
+                  _buildCard(
+                      '부추무침', '3.8', 'https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg','https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg'),
+                   _buildCard(
+                      '파스타알리오', '4.1','https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg','https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg'),
+                      //'assets/mountain.jpg'),
+                  _buildCard(
+                      '숙주무침', '3.8', 'https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg','https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg'),
+
+                      //'assets/kathmandu.jpg')
+                ],
+              ),*/
+
+            )
+          ;}));}}
+
+
+
+  
+
+   Widget _buildCard(BuildContext context, DocumentSnapshot document) {
+     //String title, String rating, String imgurl, String imguri) {
+   // return Image.network(document['img_url'], fit: BoxFit.cover);} 
+    
+    return
+    Padding(
+        padding: EdgeInsets.all(10.0),
+        child: InkWell(
+          onTap: () {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => DetailPage(document)));
+          },
+          child: Stack(
+            children: <Widget>[
+             Hero(tag: document.documentID, child: Container (
+                height: 270.0,
+                width: 300.0,
+                
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.0),
+                   image: DecorationImage(
+                        image: NetworkImage(
+                        
+                          document['img_url']),
+                        //  '${recipepost['img_url']}'),
+                         fit: BoxFit.cover)),
+              ),),
+              //make the shade a bit deeper.
+              Container(
+                height: 270.0,
+                width: 300.0,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.0),
+                    color: Colors.black.withOpacity(0.3)),
               ),
-            ),
-          ),
-        ]),
-      ]);
-    }
-
-    //Pages covers entire carousel
-    final CarouselSlider coverScreenExample = CarouselSlider(
-      viewportFraction: 1.0,
-      aspectRatio: 2.0,
-      autoPlay: false,
-      enlargeCenterPage: false,
-      items: map<Widget>(
-        imgList,
-        (index, i) {
-          return Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(image: NetworkImage(i), fit: BoxFit.cover),
-            ),
-          );
-        },
-      ),
-    );
-
-    //User input pauses carousels automatic playback
-    final CarouselSlider touchDetectionDemo = CarouselSlider(
-      viewportFraction: 0.9,
-      aspectRatio: 2.0,
-      autoPlay: true,
-      enlargeCenterPage: true,
-      pauseAutoPlayOnTouch: Duration(seconds: 3),
-      items: imgList.map(
-        (url) {
-          return Container(
-            margin: EdgeInsets.all(5.0),
-            child: ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              child: Image.network(
-                url,
-                fit: BoxFit.cover,
-                width: 1000.0,
-              ),
-            ),
-          );
-        },
-      ).toList(),
-    );
-
-    //Non-looping manual Carousel
-    final CarouselSlider nonLoopingCarousel = CarouselSlider(
-      items: child,
-      scrollPhysics: BouncingScrollPhysics(),
-      enableInfiniteScroll: false,
-      autoPlay: false,
-      enlargeCenterPage: true,
-      viewportFraction: 0.9,
-      aspectRatio: 2.0,
-    );
-
-    //Vertical carousel
-    final CarouselSlider verticalScrollCarousel = CarouselSlider(
-      scrollDirection: Axis.vertical,
-      aspectRatio: 2.0,
-      autoPlay: true,
-      enlargeCenterPage: true,
-      viewportFraction: 0.9,
-      pauseAutoPlayOnTouch: Duration(seconds: 3),
-      items: imgList.map(
-        (url) {
-          return Container(
-            margin: EdgeInsets.all(5.0),
-            child: ClipRRect(
-              borderRadius: BorderRadius.all(Radius.circular(5.0)),
-              child: Image.network(
-                url,
-                fit: BoxFit.cover,
-                width: 1000.0,
-              ),
-            ),
-          );
-        },
-      ).toList(),
-    );
-
-    //create full screen Carousel with context
-    CarouselSlider getFullScreenCarousel(BuildContext mediaContext) {
-      return CarouselSlider(
-        autoPlay: true,
-        viewportFraction: 1.0,
-        aspectRatio: MediaQuery.of(mediaContext).size.aspectRatio,
-        items: imgList.map(
-          (url) {
-            return Container(
-              child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(0.0)),
-                child: Image.network(
-                  url,
-                  fit: BoxFit.cover,
-                  width: 1000.0,
+              Positioned(
+                top: 10.0,
+                left: 10.0,
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      height: 50.0,
+                      width: 110.0,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.0),
+                          color: Colors.black.withOpacity(0.2)),
+                      child: Center(
+                          child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                         // Icon(Icons.star, color: Colors.white, size: 12.0),
+                         // SizedBox(width: 5.0),
+                         
+                          Text(
+                            '자세히보기',
+                            style: TextStyle(color: Colors.white, fontSize: 30.0, ),
+                          )
+                        ],
+                      )),
+                    ),
+                 //   SizedBox(width: 50.0),
+                 //   Text(
+                  //    'More',
+                  //    style: TextStyle(
+                  //        color: Colors.white, 
+                          //fontFamily: 'Opensans'
+                  //        ),
+                  //  ),
+                   // SizedBox(width: 7.0),
+                    //this should be an iconbutton in a real app.
+                 //   Icon(Icons.arrow_drop_down, color: Colors.white, size: 25.0)
+                  ],
+                ),
+              ),  
+              Positioned(
+                top: 55.0,
+                left: 20.0,
+                child: Container(
+                  width: 220.0,
+                  child: Text(document['title'],
+                      style: TextStyle(
+                        //  fontFamily: 'Opensans',
+                          fontSize: 55.0,
+                          color: Colors.white,
+                          )),
                 ),
               ),
-            );
-          },
-        ).toList(),
-      );
-    }
-
-    CarouselSlider getOnDemandCarousel(BuildContext mediaContext) {
-      return CarouselSlider.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: 15,
-        itemBuilder: (BuildContext context, int itemIndex) =>
-            Container(
-              child: Text(itemIndex.toString()),
-            ),
-      );
-    }
-
-    return MaterialApp(
-      title: 'demo',
-      home: Scaffold(
-        appBar: AppBar(title: Text('Carousel slider demo')),
-        body: ListView(
-          children: <Widget>[
-            Padding(
-                padding: EdgeInsets.symmetric(vertical: 15.0),
-                child: Column(children: [
-                  Text('Manuell Carousel'),
-                  manualCarouselDemo,
-                ])),
-            Padding(
-                padding: EdgeInsets.symmetric(vertical: 15.0),
-                child: Column(children: [
-                  Text('Auto Playing Carousel'),
-                  autoPlayDemo,
-                ])),
-            Padding(
-                padding: EdgeInsets.symmetric(vertical: 15.0),
-                child: Column(children: [
-                  Text('Button Controlled Carousel'),
-                  buttonDemo(),
-                ])),
-            Padding(
-                padding: EdgeInsets.symmetric(vertical: 15.0),
-                child: Column(children: [
-                  Text('Full Screen Carousel'),
-                  coverScreenExample,
-                ])),
-            Padding(
-                padding: EdgeInsets.symmetric(vertical: 15.0),
-                child: Column(children: [
-                  Text('Carousel With Indecator'),
-                  CarouselWithIndicator(),
-                ])),
-            Padding(
-                padding: EdgeInsets.symmetric(vertical: 15.0),
-                child: Column(children: [
-                  Text('Pause When Touched Carousel'),
-                  touchDetectionDemo,
-                ])),
-            Padding(
-                padding: EdgeInsets.symmetric(vertical: 15.0),
-                child: Column(children: [
-                  Text('No infinity scroll carousel'),
-                  nonLoopingCarousel,
-                ])),
-            Padding(
-                padding: EdgeInsets.symmetric(vertical: 15.0),
-                child: Column(children: [
-                  Text('Vertical scroll carousel'),
-                  verticalScrollCarousel,
-                ])),
-            Padding(
-                padding: EdgeInsets.only(top: 15.0),
-                //Builder needed to provide mediaQuery context from material app
-                child: Builder(builder: (context) {
-                  return Column(children: [
-                    Text('Full screen carousel'),
-                    getFullScreenCarousel(context),
-                  ]);
-                })),
-            Padding(
-                padding: EdgeInsets.only(top: 15.0),
-                child: Builder(builder: (context) {
-                  return Column(children: [
-                    Text('On demand item carousel'),
-                    getOnDemandCarousel(context),
-                  ]);
-                })),
-          ],
-        ),
-      ),
-    );
-  }
-} */
+              Positioned(
+                  top: 200.0,
+                  left: 20.0,
+                  child: Row(children: [
+                    Text(document['chef'],
+                        style: TextStyle(
+                     //       fontFamily: 'Opensans',
+                            fontSize: 30.0,
+                            color: Colors.white)
+                           // fontWeight: FontWeight.w600)
+                           ),
+                   // SizedBox(width: 15.0),
+                    Stack(
+                      children: <Widget>[
+                         Container(height: 40.0, width: 100.0),
+                        //Container(
+                        //  height: 60.0,
+                        //  width: 60.0,
+                        //  decoration: BoxDecoration(
+                        //      borderRadius: BorderRadius.circular(100.0),
+                       //  CircleAvatar(
+                       //    backgoundImage:  NetworkImage("https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg"),
+                       //
+                       Positioned(
+                          left: 40.0,
+                          child: Container(
+                            height: 40.0,
+                            width: 40.0,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20.0),),
+                          //      image: DecorationImage(
+                           //    image: NetworkImage(document['chef_img']), fit: BoxFit.cover)),
+                               child: Center(
+                              child: Text('+17..',
+                                  style: TextStyle(
+                                    fontSize: 14.0, color: Colors.black)),
+                            ),
+                          ),
+                        //), 
+                  /*      Positioned(
+                  top: 225.0,
+                  left: 10.0,
+                  child: Row(children: [
+                    Text('I was here',
+                        style: TextStyle(
+                          //  fontFamily: 'Opensans',
+                            fontSize: 25.0,
+                            color: Colors.white,
+                          //  fontWeight: FontWeight.w600)
+                    )),
+                    SizedBox(width: 15.0),
+                    Stack(
+                      children: <Widget>[
+                        Container(height: 40.0, width: 100.0),
+                        Container(
+                          height: 40.0,
+                          width: 40.0,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.0),
+                              image: DecorationImage(
+                                  image: NetworkImage(document['chf_img_url']),
+                                  fit: BoxFit.cover)),
+                        ), 
+                      Positioned(
+                          left: 30.0,
+                          child: Container(
+                            height: 40.0,
+                            width: 40.0,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20.0),
+                                color: Colors.white),
+                            child: Center(
+                              child: Text('+17..',
+                                  style: TextStyle(
+                                      fontSize: 14.0, color: Colors.black)),
+                            ),
+                          ),
+                        )  */
+                    
+    )])]))])));}
+                        
+                    
+        
+      
