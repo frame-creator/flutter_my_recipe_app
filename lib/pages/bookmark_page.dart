@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 //import 'package:recipe_app/widgets/horizon_part.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:recipe_app/pages/detail_page.dart';
+//import 'package:recipe_app/pages/list_page.dart';
 
 class BookmarkPage extends StatefulWidget {
   BookmarkPage({Key key}) : super(key: key);
@@ -16,6 +17,7 @@ class BookmarkPage extends StatefulWidget {
 
 class _BookmarkPageState extends State<BookmarkPage> {
 
+
    
   @override
 
@@ -26,6 +28,23 @@ class _BookmarkPageState extends State<BookmarkPage> {
                 }
     
   }
+
+class Post {
+ final String title;
+ final String img_url;
+ final String chef;
+ final DocumentReference reference;
+
+ Post.fromMap(Map<String, dynamic> map, {this.reference})
+     : assert(map['title'] != null),
+       assert(map['img_url'] != null),
+       assert(map['chef'] != null),
+       title = map['title'],
+       img_url = map['img_url'],
+       chef= map['chef'];
+
+ Post.fromSnapshot(DocumentSnapshot snapshot)
+     : this.fromMap(snapshot.data, reference: snapshot.reference); }
 
 
 class HorizonPart extends StatefulWidget {
@@ -72,7 +91,7 @@ class _HorizonPartState extends State<HorizonPart> {
         //      child: 
               StreamBuilder<QuerySnapshot> (
               stream: Firestore.instance.collection('posts').snapshots(),
-    
+                
                builder: (context, snapshot) { 
                return 
               // ListView.builder(
@@ -89,7 +108,7 @@ class _HorizonPartState extends State<HorizonPart> {
                  physics: PageScrollPhysics(), // this is what you are looking for
                  scrollDirection: Axis.horizontal,
                 //scrollDirection: Axis.vertical,
-                    itemCount: snapshot.data.documents.length,
+                    itemCount: snapshot?.data?.documents?.length ?? 0,
                     
                     itemBuilder:(BuildContext context, int index){
                     //  DocumentSnapshot recipepost = snapshot.data.documents[index];
@@ -140,6 +159,7 @@ class _HorizonPartState extends State<HorizonPart> {
           onTap: () {
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: (context) => DetailPage(document)));
+                //DetailPage(document)));
           },
           child: Stack(
             children: <Widget>[
@@ -295,7 +315,22 @@ class _HorizonPartState extends State<HorizonPart> {
                           ),
                         )  */
                     
-    )])]))])));}
+    )
+    ]
+    )
+    ]
+    )
+    )
+    ]
+    )
+    )
+    );
+    
+}
+
+ 
+
+    
                         
                     
         

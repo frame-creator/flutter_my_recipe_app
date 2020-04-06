@@ -30,10 +30,13 @@ class _DetailPageState extends State<DetailPage> {
                                 return Text('로딩중');
                               }
                return 
-      Stack(
-        children: [
+      ListView ( 
+        scrollDirection: Axis.vertical,
+        children : <Widget>[ 
+          Stack(
+        children: <Widget>[
           Container(
-            height: MediaQuery.of(context).size.height,
+          //  height: MediaQuery.of(context).size.height,
             color: Color(0xFFFE7050),
           ),
           Positioned(
@@ -185,6 +188,40 @@ class _DetailPageState extends State<DetailPage> {
                   ],
               ),
                 ),
+
+               /* Padding(
+                  padding: EdgeInsets.only(top: 15.0, left: 15.0),
+                  child: Container(
+                    width: 250.0,
+                    child: Text('Officially the Republic of the Union of Myanmar and also known as Burma, is a country in Southeast Asia',
+                    style:
+                        TextStyle(color: Color(0xFF6A6A6A), fontFamily: 'Opensans', fontWeight: FontWeight.w300)
+                    ),
+                  )
+                ),*/
+            /*    StreamBuilder<DocumentSnapshot> (
+              stream: Firestore.instance.collection('posts').document('documentID').snapshots(),
+                
+               builder: (context, snapshot) { 
+              // DocumentSnapshot document = snapshot.data ; 
+               // var data = snapshot.data.data;
+                 if (!snapshot.hasData) {
+                                return Text('로딩중');
+                              }
+               return 
+      
+                ListView.builder(
+                  final List ingredient =
+                  List<String>.from(widget.document['ingredient'] ?? []);
+
+                  itemCount: 3,
+                    
+                  itemBuilder:(BuildContext context, snapshot){
+                      if (!snapshot.hasData) {
+                   return Center(child :Text ('로딩중'));
+                    }
+                    return _buildingCard(context, snapshot.data);});}),
+
                 Padding(
                   padding: EdgeInsets.only(top: 15.0, left: 15.0),
                   child: Container(
@@ -198,6 +235,7 @@ class _DetailPageState extends State<DetailPage> {
               ],
             ),
           ),
+          */
           Padding(
             padding: EdgeInsets.only(top: 40.0, left: 15.0, right: 15.0),
             child: Container(
@@ -207,7 +245,12 @@ class _DetailPageState extends State<DetailPage> {
                 children: <Widget>[
                   Row(
                   children: <Widget>[
-                    Icon(Icons.arrow_back_ios, color: Colors.white, size: 15.0),
+                    IconButton( 
+                      onPressed: () { Navigator.pop(context);}, 
+                      icon: Icon(Icons.arrow_back_ios),
+                       color: Colors.white, 
+                       iconSize: 15.0,
+                    ),
                     SizedBox(width: 20.0),
                     Container(
                       height: 40.0,
@@ -231,13 +274,14 @@ class _DetailPageState extends State<DetailPage> {
                     )
                 ],
               ),
-              Icon(Icons.file_upload, color: Colors.white)
+            //  Icon(Icons.file_upload, color: Colors.white)
         ],
       ),
             ),
           )
         ]
-      );})
-    );
+       ) )])]);}
+    ));
+    
   }
 }
