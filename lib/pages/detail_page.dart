@@ -7,16 +7,38 @@ class DetailPage extends StatefulWidget {
    final DocumentSnapshot document;
 
    DetailPage(this.document);
-
+   
+   List<dynamic> getItem;
+   
+   
    //List<DocumentSnapshot> get documents;
 
   @override
   _DetailPageState createState() => _DetailPageState();
 }
 
+Widget buildContainer(Widget child) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(color: Colors.grey),
+        borderRadius: BorderRadius.circular(30),
+      ),
+      margin: EdgeInsets.all(10),
+      padding: EdgeInsets.all(10),
+      height: 700,
+      width: 300,
+      child: child,
+    );
+  }
+
 class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
+     List<String> getItem = List.from(widget.document['ingredient'] ?? []); 
+     List<String> getSteps = List.from(widget.document['steps_description'] ?? []); 
+    
+     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       
       body: 
@@ -30,17 +52,21 @@ class _DetailPageState extends State<DetailPage> {
                                 return Text('로딩중');
                               }
                return 
-      ListView ( 
+     SingleChildScrollView(
+     //  scrollDirection: Axis.horizontal,
+       child: ListView ( 
+         shrinkWrap: true,
+         physics: const NeverScrollableScrollPhysics(),
         scrollDirection: Axis.vertical,
         children : <Widget>[ 
           Stack(
         children: <Widget>[
-          Container(
+         // Container(
           //  height: MediaQuery.of(context).size.height,
-            color: Color(0xFFFE7050),
-          ),
-          Positioned(
-            bottom: 22.0,
+        //    color: Color(0xFFFE7050),
+       //   ),
+         /* Positioned(
+           bottom: 22.0,
             child: Container(
 
               width: MediaQuery.of(context).size.width,
@@ -58,8 +84,9 @@ class _DetailPageState extends State<DetailPage> {
               )
             ),
           ),
+          */
           Container(
-            height: MediaQuery.of(context).size.height - 65.0,
+            height: MediaQuery.of(context).size.height - 155.0,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(bottomLeft: Radius.circular(35.0), bottomRight: Radius.circular(35.0)),
               color: Colors.white
@@ -69,16 +96,16 @@ class _DetailPageState extends State<DetailPage> {
           //tag: document.documentID, 
           //child:
            Container(
-            height: MediaQuery.of(context).size.height - 310.0,
+            height: MediaQuery.of(context).size.height - 210.0,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(bottomLeft: Radius.circular(35.0), bottomRight: Radius.circular(35.0)),
                 image: DecorationImage(
                 image: NetworkImage(widget.document['img_url']),
                 fit: BoxFit.cover)
               )
-            ),
+            ),]),
             //),
-      
+      /*
           Positioned(
             top: 400.0,
             child: Column(
@@ -137,6 +164,9 @@ class _DetailPageState extends State<DetailPage> {
                     ),
                   ),
                 ),
+
+                
+
                 Padding(
                   padding: const EdgeInsets.only(left: 15.0, top: 15.0),
                   child: Row(
@@ -146,7 +176,8 @@ class _DetailPageState extends State<DetailPage> {
                             fontFamily: 'Opensans',
                             fontSize: 15.0,
                             color: Color(0xFF6A6A6A),
-                            fontWeight: FontWeight.w600)),
+                           // fontWeight: FontWeight.w600
+                            )),
                     SizedBox(width: 25.0),
                     Stack(
                       children: <Widget>[
@@ -188,8 +219,157 @@ class _DetailPageState extends State<DetailPage> {
                   ],
               ),
                 ),
+                */
+              StreamBuilder<DocumentSnapshot>(
+    stream: Firestore.instance.collection('posts').document('documentID').snapshots(),
+     
+   builder: (BuildContext context,
+             AsyncSnapshot<DocumentSnapshot> snapshot) {
+return ListView(
+  shrinkWrap: true,
+  physics: const NeverScrollableScrollPhysics(),
+      children: getItem.map
+      ((data) => 
 
-               /* Padding(
+//      buildBulletWidget(snapshot.data, screenWidth)).toList(),
+//    );
+  
+ //            });}
+
+
+   //  buildBulletWidget(DocumentSnapshot document, double screenWidth) {
+   // return 
+    Container(
+      color: Colors.white,
+      child: Row(
+        children: <Widget>[
+          Container(
+            height: 8.0,
+            width: 8.0,
+           decoration: BoxDecoration(
+              color: Color(0xFF25BEBD),
+              borderRadius: BorderRadius.circular(4.0)
+            ),
+          ),
+          SizedBox(width: 10.0),
+          Container(
+           // width: screenWidth - 60 ,
+            child: Material(child: Text(data,
+            style: TextStyle(
+                        fontFamily: 'Cute',
+                       // fontWeight: FontWeight.w400,
+                        fontSize: 30.0,
+                        color: Colors.black
+                      ) // color: Color(0xFFBBBBBB)),
+                      ),)
+          )
+          
+        ],
+      ),
+    )
+  
+  ).toList(),
+  
+);
+             }),
+             StreamBuilder<DocumentSnapshot>(
+    stream: Firestore.instance.collection('posts').document('documentID').snapshots(),
+     
+   builder: (BuildContext context,
+             AsyncSnapshot<DocumentSnapshot> snapshot) {
+return ListView(
+  shrinkWrap: true,
+  physics: const NeverScrollableScrollPhysics(),
+      children: getSteps.map
+      ((data) => 
+
+//      buildBulletWidget(snapshot.data, screenWidth)).toList(),
+//    );
+  
+ //            });}
+
+
+   //  buildBulletWidget(DocumentSnapshot document, double screenWidth) {
+   // return 
+    Container(
+      color: Colors.white,
+      child: Row(
+        children: <Widget>[
+          Container(
+            height: 8.0,
+            width: 8.0,
+           decoration: BoxDecoration(
+              color: Color(0xFF25BEBD),
+              borderRadius: BorderRadius.circular(4.0)
+            ),
+          ),
+          
+          SizedBox(width: 10.0),
+          Expanded(
+           // width: screenWidth - 60 ,
+            child: Material(child: Text(data,
+            style: TextStyle(
+                        fontFamily: 'Cute',
+                       // fontWeight: FontWeight.w400,
+                        fontSize: 30.0,
+                        color: Colors.black
+                      ) // color: Color(0xFFBBBBBB)),
+                      ),)
+          )
+          
+        ],
+      ),
+    )
+  
+  ).toList(),
+  
+);
+             }),
+
+           buildContainer( ListView.builder(
+               shrinkWrap: true,
+                itemBuilder: (ctx, index) => Column(
+                      children: [
+                        ListTile(
+                          leading: CircleAvatar(
+                            child: Text('# ${(index + 1)}'),
+                          ),
+                          title: Text(
+                            getSteps[index], style: TextStyle(fontSize: 30)
+                          ),
+                          
+                        ),
+                        Divider()
+                      ],
+                    ),
+                itemCount: getSteps.length,
+              ),),
+              SizedBox(height: 20)
+
+             ]
+             )
+             )
+             ;}
+             )
+             );
+             }
+             }
+   /*
+  );
+  }
+  ),
+             ]
+  ),
+         ] )
+         );}));}}
+  
+   */
+  
+
+
+  
+/*
+                Padding(
                   padding: EdgeInsets.only(top: 15.0, left: 15.0),
                   child: Container(
                     width: 250.0,
@@ -198,8 +378,18 @@ class _DetailPageState extends State<DetailPage> {
                         TextStyle(color: Color(0xFF6A6A6A), fontFamily: 'Opensans', fontWeight: FontWeight.w300)
                     ),
                   )
-                ),*/
-            /*    StreamBuilder<DocumentSnapshot> (
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 15.0, left: 15.0),
+                  child: Container(
+                    width: 250.0,
+                    child: Text('Officially the Republic of the Union of Myanmar and also known as Burma, is a country in Southeast Asia',
+                    style:
+                        TextStyle(color: Color(0xFF6A6A6A), fontFamily: 'Opensans', fontWeight: FontWeight.w300)
+                    ),
+                  )
+                ),
+                StreamBuilder<DocumentSnapshot> (
               stream: Firestore.instance.collection('posts').document('documentID').snapshots(),
                 
                builder: (context, snapshot) { 
@@ -235,7 +425,7 @@ class _DetailPageState extends State<DetailPage> {
               ],
             ),
           ),
-          */
+          
           Padding(
             padding: EdgeInsets.only(top: 40.0, left: 15.0, right: 15.0),
             child: Container(
@@ -280,8 +470,11 @@ class _DetailPageState extends State<DetailPage> {
             ),
           )
         ]
-       ) )])]);}
+       ) )])]));}
     ));
     
   }
 }
+
+*/
+          

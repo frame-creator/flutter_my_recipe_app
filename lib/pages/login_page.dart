@@ -55,10 +55,10 @@ return Text('img');
 
 class LoginPage extends StatefulWidget {
  // LoginPage({Key key}) : super(key: key);
-  
+   
    final DocumentSnapshot document;
-
-   LoginPage(this.document);
+   List<dynamic> getItem;
+   LoginPage(this.document );
   
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -70,17 +70,61 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     List<String> getItem = List.from(widget.document['ingredient'] ?? []); 
+    
+  final screenWidth = MediaQuery.of(context).size.width;
      return StreamBuilder<DocumentSnapshot>(
     stream: Firestore.instance.collection('posts').document('documentID').snapshots(),
      
-   builder: (BuildContext context, 
+   builder: (BuildContext context,
              AsyncSnapshot<DocumentSnapshot> snapshot) {
 return ListView(
-      children: getItem.map((doc) => Text(doc)).toList(),
-    );
-  });}
+      children: getItem.map
+      ((data) => 
+
+//      buildBulletWidget(snapshot.data, screenWidth)).toList(),
+//    );
   
-}
+ //            });}
+
+
+   //  buildBulletWidget(DocumentSnapshot document, double screenWidth) {
+   // return 
+    Container(
+      color: Colors.white,
+      child: Row(
+        children: <Widget>[
+          Container(
+            height: 8.0,
+            width: 8.0,
+           decoration: BoxDecoration(
+              color: Color(0xFF25BEBD),
+              borderRadius: BorderRadius.circular(4.0)
+            ),
+          ),
+          SizedBox(width: 10.0),
+          Container(
+           // width: screenWidth - 60 ,
+            child: Material(child: Text(data,
+            style: TextStyle(
+                        fontFamily: 'Cute',
+                       // fontWeight: FontWeight.w400,
+                        fontSize: 30.0,
+                        color: Colors.black
+                      ) // color: Color(0xFFBBBBBB)),
+                      ),)
+          )
+          
+        ],
+      ),
+    )
+  
+  ).toList(),
+  
+   
+  );
+  }
+  );}}
+
 
 //new ListView(children: createChildren(snapshot));
 //    },
