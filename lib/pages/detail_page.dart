@@ -1,71 +1,74 @@
-
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DetailPage extends StatefulWidget {
+  final DocumentSnapshot document;
 
-   final DocumentSnapshot document;
+  DetailPage(this.document);
 
-   DetailPage(this.document);
-   
-   List<dynamic> getItem;
-   
-   
-   //List<DocumentSnapshot> get documents;
+  List<dynamic> getItem;
+
+  //List<DocumentSnapshot> get documents;
 
   @override
   _DetailPageState createState() => _DetailPageState();
 }
 
 Widget buildContainer(Widget child) {
-    return Container(
-      decoration: BoxDecoration(
+  return Container(
+    decoration: BoxDecoration(
         color: Colors.white,
-        border: Border.all(color: Colors.grey),
-        borderRadius: BorderRadius.circular(30),
-      ),
-      margin: EdgeInsets.all(10),
-      padding: EdgeInsets.all(10),
-      height: 700,
-      width: 300,
-      child: child,
-    );
-  }
+        // border: Border.all(color: Colors.grey),
+        borderRadius: BorderRadius.circular(35),
+        boxShadow: [
+          BoxShadow(
+              color: Colors.red[50],
+              offset: Offset(-4.0, -6.0),
+              spreadRadius: 4.0,
+              blurRadius: 1.0)
+        ]),
+    margin: EdgeInsets.all(10),
+    padding: EdgeInsets.all(10),
+    //  height: 5000,
+    // width: 300,
+    child: child,
+  );
+}
 
 class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
-     List<String> getItem = List.from(widget.document['ingredient'] ?? []); 
-     List<String> getSteps = List.from(widget.document['steps_description'] ?? []); 
-    
-     final screenWidth = MediaQuery.of(context).size.width;
+    List<String> getItem = List.from(widget.document['ingredient'] ?? []);
+    List<String> getSteps =
+        List.from(widget.document['steps_description'] ?? []);
+    List<String> getStepsImg = List.from(widget.document['steps_img'] ?? []);
+
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      
-      body: 
-      StreamBuilder<DocumentSnapshot> (
-              stream: Firestore.instance.collection('posts').document('documentID').snapshots(),
-                 
-               builder: (context, snapshot) { 
-              // DocumentSnapshot document = snapshot.data ; 
-               // var data = snapshot.data.data;
-                 if (!snapshot.hasData) {
-                                return Text('로딩중');
-                              }
-               return 
-     SingleChildScrollView(
-     //  scrollDirection: Axis.horizontal,
-       child: ListView ( 
-         shrinkWrap: true,
-         physics: const NeverScrollableScrollPhysics(),
-        scrollDirection: Axis.vertical,
-        children : <Widget>[ 
-          Stack(
-        children: <Widget>[
-         // Container(
-          //  height: MediaQuery.of(context).size.height,
-        //    color: Color(0xFFFE7050),
-       //   ),
-         /* Positioned(
+        body: StreamBuilder<DocumentSnapshot>(
+            stream: Firestore.instance
+                .collection('posts')
+                .document('documentID')
+                .snapshots(),
+            builder: (context, snapshot) {
+              // DocumentSnapshot document = snapshot.data ;
+              // var data = snapshot.data.data;
+              if (!snapshot.hasData) {
+                return Text('로딩중');
+              }
+              return SingleChildScrollView(
+                  //  scrollDirection: Axis.horizontal,
+                  child: ListView(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      scrollDirection: Axis.vertical,
+                      children: <Widget>[
+                    Stack(children: <Widget>[
+                      // Container(
+                      //  height: MediaQuery.of(context).size.height,
+                      //    color: Color(0xFFFE7050),
+                      //   ),
+                      /* Positioned(
            bottom: 22.0,
             child: Container(
 
@@ -85,27 +88,30 @@ class _DetailPageState extends State<DetailPage> {
             ),
           ),
           */
-          Container(
-            height: MediaQuery.of(context).size.height - 155.0,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(35.0), bottomRight: Radius.circular(35.0)),
-              color: Colors.white
-            ),
-          ),
-          //Hero(
-          //tag: document.documentID, 
-          //child:
-           Container(
-            height: MediaQuery.of(context).size.height - 210.0,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(35.0), bottomRight: Radius.circular(35.0)),
-                image: DecorationImage(
-                image: NetworkImage(widget.document['img_url']),
-                fit: BoxFit.cover)
-              )
-            ),]),
-            //),
-      /*
+                      Container(
+                        height: MediaQuery.of(context).size.height - 155.0,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(35.0),
+                                bottomRight: Radius.circular(35.0)),
+                            color: Colors.white),
+                      ),
+                      //Hero(
+                      //tag: document.documentID,
+                      //child:
+                      Container(
+                          height: MediaQuery.of(context).size.height - 210.0,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(35.0),
+                                  bottomRight: Radius.circular(35.0)),
+                              image: DecorationImage(
+                                  image:
+                                      NetworkImage(widget.document['img_url']),
+                                  fit: BoxFit.cover))),
+                    ]),
+                    //),
+                    /*
           Positioned(
             top: 400.0,
             child: Column(
@@ -220,12 +226,15 @@ class _DetailPageState extends State<DetailPage> {
               ),
                 ),
                 */
-              StreamBuilder<DocumentSnapshot>(
-    stream: Firestore.instance.collection('posts').document('documentID').snapshots(),
-     
-   builder: (BuildContext context,
-             AsyncSnapshot<DocumentSnapshot> snapshot) {
-return ListView(
+                    StreamBuilder<DocumentSnapshot>(
+                        stream: Firestore.instance
+                            .collection('posts')
+                            .document('documentID')
+                            .snapshots(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<DocumentSnapshot> snapshot) {
+/* 
+ return ListView(
   shrinkWrap: true,
   physics: const NeverScrollableScrollPhysics(),
       children: getItem.map
@@ -270,104 +279,99 @@ return ListView(
   
   ).toList(),
   
-);
-             }),
-             StreamBuilder<DocumentSnapshot>(
-    stream: Firestore.instance.collection('posts').document('documentID').snapshots(),
-     
-   builder: (BuildContext context,
-             AsyncSnapshot<DocumentSnapshot> snapshot) {
-return ListView(
-  shrinkWrap: true,
-  physics: const NeverScrollableScrollPhysics(),
-      children: getSteps.map
-      ((data) => 
+); */
+                          return buildContainer(
+                            ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              scrollDirection: Axis.vertical,
+                              itemBuilder: (ctx, index) => Column(
+                                children: [
+                                  ListTile(
+                                    leading:
+                                        //CircleAvatar(
+                                        //  backgroundColor: Colors.red[300],
 
-//      buildBulletWidget(snapshot.data, screenWidth)).toList(),
-//    );
-  
- //            });}
+                                        //   child: Text( '${(index + 1)}', style: TextStyle(color: Colors.white)),
+                                        // ),
+                                        Container(
+                                      height: 12.0,
+                                      width: 12.0,
+                                      decoration: BoxDecoration(
+                                          color: Colors.red[300],
+                                          borderRadius:
+                                              BorderRadius.circular(30.0)),
+                                    ),
+                                    title: Text(getItem[index],
+                                        style: TextStyle(fontSize: 30)),
+                                  ),
+                                  //    ClipRRect(
+                                  //       borderRadius: BorderRadius.circular(16.0),
+                                  //      child: ConstrainedBox(
+                                  //       constraints: BoxConstraints(
+                                  //  minWidth: 144,
+                                  //       minHeight: 244,
+                                  //  maxWidth: 154,
+                                  //       maxHeight: 304,
+                                  //      ),
+                                  //        child: Image.network(getStepsImg[index], fit: BoxFit.cover),
+                                  //        ),),
 
+                                  Divider()
+                                ],
+                              ),
+                              itemCount: getItem.length,
+                            ),
 
-   //  buildBulletWidget(DocumentSnapshot document, double screenWidth) {
-   // return 
-    Container(
-      color: Colors.white,
-      child: Row(
-        children: <Widget>[
-          Container(
-            height: 8.0,
-            width: 8.0,
-           decoration: BoxDecoration(
-              color: Color(0xFF25BEBD),
-              borderRadius: BorderRadius.circular(4.0)
-            ),
-          ),
-          
-          SizedBox(width: 10.0),
-          Expanded(
-           // width: screenWidth - 60 ,
-            child: Material(child: Text(data,
-            style: TextStyle(
-                        fontFamily: 'Cute',
-                       // fontWeight: FontWeight.w400,
-                        fontSize: 30.0,
-                        color: Colors.black
-                      ) // color: Color(0xFFBBBBBB)),
-                      ),)
-          )
-          
-        ],
-      ),
-    )
-  
-  ).toList(),
-  
-);
-             }),
+                            //SizedBox(height: 20)
+                          );
+                        }),
 
-           buildContainer( ListView.builder(
-               shrinkWrap: true,
-                itemBuilder: (ctx, index) => Column(
-                      children: [
-                        ListTile(
-                          leading: CircleAvatar(
-                            child: Text('# ${(index + 1)}'),
-                          ),
-                          title: Text(
-                            getSteps[index], style: TextStyle(fontSize: 30)
-                          ),
-                          
+                    buildContainer(
+                      ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        scrollDirection: Axis.vertical,
+                        itemBuilder: (ctx, index) => Column(
+                          children: [
+                            ListTile(
+                              leading: CircleAvatar(
+                                backgroundColor: Colors.red[300],
+                                child: Text('${(index + 1)}',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 20)),
+                              ),
+                              title: Text(getSteps[index],
+                                  style: TextStyle(fontSize: 30)),
+                            ),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(16.0),
+                              child: ConstrainedBox(
+                                constraints: BoxConstraints(
+                                  //  minWidth: 144,
+                                  minHeight: 244,
+                                  //  maxWidth: 154,
+                                  maxHeight: 304,
+                                ),
+                                child: Image.network(getStepsImg[index],
+                                    fit: BoxFit.cover),
+                              ),
+                            ),
+                            Divider(
+                                //color: Colors.red[50],
+                                //thickness:2.0
+                                )
+                          ],
                         ),
-                        Divider()
-                      ],
+                        itemCount: getSteps.length,
+                      ),
                     ),
-                itemCount: getSteps.length,
-              ),),
-              SizedBox(height: 20)
-
-             ]
-             )
-             )
-             ;}
-             )
-             );
-             }
-             }
-   /*
-  );
+                    SizedBox(height: 20)
+                  ]));
+            }));
   }
-  ),
-             ]
-  ),
-         ] )
-         );}));}}
-  
-   */
-  
+}
 
-
-  
 /*
                 Padding(
                   padding: EdgeInsets.only(top: 15.0, left: 15.0),
@@ -477,4 +481,3 @@ return ListView(
 }
 
 */
-          
