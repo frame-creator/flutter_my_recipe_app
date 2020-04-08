@@ -6,7 +6,7 @@ class DetailPage extends StatefulWidget {
 
   DetailPage(this.document);
 
-  List<dynamic> getItem;
+  //List<dynamic> getItem;
 
   //List<DocumentSnapshot> get documents;
 
@@ -19,11 +19,13 @@ Widget buildContainer(Widget child) {
     decoration: BoxDecoration(
         color: Colors.white,
         // border: Border.all(color: Colors.grey),
-        borderRadius: BorderRadius.circular(35),
+        borderRadius:
+        // BorderRadius.circular(35),
+        BorderRadius.only(bottomLeft: Radius.circular(35)),
         boxShadow: [
           BoxShadow(
               color: Colors.red[50],
-              offset: Offset(-4.0, -6.0),
+              offset: Offset(-4.0, 6.0),
               spreadRadius: 4.0,
               blurRadius: 1.0)
         ]),
@@ -62,7 +64,7 @@ class _DetailPageState extends State<DetailPage> {
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       scrollDirection: Axis.vertical,
-                      children: <Widget>[
+                      children: <Widget>[ Column( children:<Widget>[
                     Stack(children: <Widget>[
                       // Container(
                       //  height: MediaQuery.of(context).size.height,
@@ -89,31 +91,65 @@ class _DetailPageState extends State<DetailPage> {
           ),
           */
                       Container(
-                        height: MediaQuery.of(context).size.height - 155.0,
+                        height: MediaQuery.of(context).size.height ,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(35.0),
-                                bottomRight: Radius.circular(35.0)),
+                                bottomLeft: Radius.circular(35.0)),
+                           //     bottomRight: Radius.circular(35.0)
+                           boxShadow: [
+                           BoxShadow(
+                           color: Colors.red[50],
+                            offset: Offset(-4.0, 6.0),
+                            spreadRadius: 4.0,
+                            blurRadius: 1.0)],
+                           
+                            color: Colors.white),
+                      ),Container(
+                        height: MediaQuery.of(context).size.height - 270.0,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(35.0)),
+                           //     bottomRight: Radius.circular(35.0)
+                           boxShadow: [
+                           BoxShadow(
+                           color: Colors.red[50],
+                            offset: Offset(-4.0, 6.0),
+                            spreadRadius: 4.0,
+                            blurRadius: 1.0)],
+                           
                             color: Colors.white),
                       ),
                       //Hero(
                       //tag: document.documentID,
                       //child:
                       Container(
-                          height: MediaQuery.of(context).size.height - 210.0,
+                          height: MediaQuery.of(context).size.height - 280.0,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(35.0),
-                                  bottomRight: Radius.circular(35.0)),
+                                  bottomLeft: Radius.circular(50.0),
+                                //  bottomRight: Radius.circular(35.0)
+                                  ),
                               image: DecorationImage(
                                   image:
                                       NetworkImage(widget.document['img_url']),
                                   fit: BoxFit.cover))),
-                    ]),
-                    //),
-                    /*
-          Positioned(
-            top: 400.0,
+                                  Container(
+                height: MediaQuery.of(context).size.height - 280.0,
+               // width: 200.0,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(50.0),
+                                //  bottomRight: Radius.circular(35.0)
+                                  ),
+                   // .circular(50.0),
+                    color: Colors.black.withOpacity(0.2)),
+              ),
+              
+                          
+                   
+                    
+          Positioned(              
+            top:  MediaQuery.of(context).size.height - 240.0,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -129,12 +165,12 @@ class _DetailPageState extends State<DetailPage> {
                           children: <Widget>[
                             Row(
                               children: <Widget>[
-                                Icon(Icons.location_on, size: 12.0, color: Colors.black),
+                                Icon(Icons.restaurant, size: 20.0, color: Colors.red[200]),
                                 Text(widget.document['title'],
                                 style: TextStyle(
-                                  fontFamily: 'Opensans',
-                                  fontSize: 30.0,
-                                  color: Colors.grey
+                                  fontFamily: 'Cute',
+                                  fontSize: 70.0,
+                                  color: Colors.black87
                                 ),
                                 )
                               ],
@@ -142,11 +178,11 @@ class _DetailPageState extends State<DetailPage> {
                             SizedBox(
                               height: 7.0,
                             ),
-                            Text(widget.document['title'],
+                            Text(widget.document['chef'],
                             style: TextStyle(
-                              fontFamily: 'Opensans',
-                              fontSize: 27.0,
-                              fontWeight: FontWeight.w600
+                              fontFamily: 'Cute',
+                              fontSize: 40.0,
+                             // fontWeight: FontWeight.w600
                             )
                             )
                           ],
@@ -224,8 +260,17 @@ class _DetailPageState extends State<DetailPage> {
                   Icon(Icons.arrow_drop_down, color: Color(0xFF6A6A6A), size: 25.0)
                   ],
               ),
-                ),
-                */
+                ),])),]),
+                    Row(
+                              children: <Widget>[
+                                Icon(Icons.restaurant_menu, size: 30.0, color: Colors.red[200]),
+                                Text('재료',
+                                style: TextStyle(
+                                  fontFamily: 'Cute',
+                                  fontSize:50.0,
+                                  color: Colors.black
+                                ),)]),            
+                
                     StreamBuilder<DocumentSnapshot>(
                         stream: Firestore.instance
                             .collection('posts')
@@ -326,7 +371,15 @@ class _DetailPageState extends State<DetailPage> {
                             //SizedBox(height: 20)
                           );
                         }),
-
+                    Row(
+                              children: <Widget>[
+                                Icon(Icons.restaurant_menu, size: 30.0, color: Colors.red[200]),
+                                Text('조리방법',
+                                style: TextStyle(
+                                  fontFamily: 'Cute',
+                                  fontSize:50.0,
+                                  color: Colors.black
+                                ),)]),
                     buildContainer(
                       ListView.builder(
                         shrinkWrap: true,
@@ -334,6 +387,7 @@ class _DetailPageState extends State<DetailPage> {
                         scrollDirection: Axis.vertical,
                         itemBuilder: (ctx, index) => Column(
                           children: [
+                             
                             ListTile(
                               leading: CircleAvatar(
                                 backgroundColor: Colors.red[300],
@@ -367,10 +421,10 @@ class _DetailPageState extends State<DetailPage> {
                       ),
                     ),
                     SizedBox(height: 20)
-                  ]));
-            }));
-  }
-}
+                  ])]));
+            }));}}
+  
+
 
 /*
                 Padding(
