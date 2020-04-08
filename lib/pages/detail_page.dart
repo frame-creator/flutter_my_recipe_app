@@ -178,14 +178,48 @@ class _DetailPageState extends State<DetailPage> {
                             SizedBox(
                               height: 7.0,
                             ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                           Container(
+                            height: 40.0,
+                            width: 40.0,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20.0),
+                                color: Color(0xFFFE7050)),
+                            child: Center(
+                              child: Text('쉐프',
+                                  style: TextStyle(
+                                      fontSize: 25.0, color: Colors.white)),
+                            ),
+                          ),
+                         
+
+                       // Container(height: 40.0, width: 100.0),
+                        Container(
+                          height: 40.0,
+                          width: 40.0,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.0),
+                              image: DecorationImage(
+                                  image: NetworkImage(widget.document['chef_img_url']),
+                                  fit: BoxFit.cover)),
+                        ),
+
+
                             Text(widget.document['chef'],
                             style: TextStyle(
                               fontFamily: 'Cute',
                               fontSize: 40.0,
                              // fontWeight: FontWeight.w600
                             )
-                            )
+                            ),
+
+
+                           
+                            ],)
                           ],
+                          
                         ),
                         Container(
                           height: 60.0,
@@ -213,7 +247,9 @@ class _DetailPageState extends State<DetailPage> {
                   padding: const EdgeInsets.only(left: 15.0, top: 15.0),
                   child: Row(
                   children: <Widget>[
-                    Text('Recommendation',
+                    
+                          SizedBox(width: 25.0),
+                    Text(widget.document['blog'],
                         style: TextStyle(
                             fontFamily: 'Opensans',
                             fontSize: 15.0,
@@ -221,49 +257,22 @@ class _DetailPageState extends State<DetailPage> {
                            // fontWeight: FontWeight.w600
                             )),
                     SizedBox(width: 25.0),
-                    Stack(
-                      children: <Widget>[
-                        Container(height: 40.0, width: 100.0),
-                        Container(
-                          height: 40.0,
-                          width: 40.0,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20.0),
-                              image: DecorationImage(
-                                  image: NetworkImage(widget.document['img_url']),
-                                  fit: BoxFit.cover)),
-                        ),
-                        Positioned(
-                          left: 30.0,
-                          child: Container(
-                            height: 40.0,
-                            width: 40.0,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20.0),
-                                color: Color(0xFFFE7050)),
-                            child: Center(
-                              child: Text(widget.document['title'],
-                                  style: TextStyle(
-                                      fontSize: 14.0, color: Colors.white)),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
+                   
                     SizedBox(width: 10.0),
-                    Text(
-                    'More',
-                    style:
-                        TextStyle(color: Color(0xFF6A6A6A), fontFamily: 'Opensans', fontWeight: FontWeight.w600),
-                  ),
-                  SizedBox(width: 7.0),
-                  Icon(Icons.arrow_drop_down, color: Color(0xFF6A6A6A), size: 25.0)
+                    
                   ],
               ),
                 ),])),]),
+
+                
+
+                
+                    SizedBox(height: 25.0),
                     Row(
                               children: <Widget>[
+                                SizedBox(width: 25.0),
                                 Icon(Icons.restaurant_menu, size: 30.0, color: Colors.red[200]),
+                                SizedBox(width: 25.0),
                                 Text('재료',
                                 style: TextStyle(
                                   fontFamily: 'Cute',
@@ -371,9 +380,12 @@ class _DetailPageState extends State<DetailPage> {
                             //SizedBox(height: 20)
                           );
                         }),
+                         SizedBox(height: 25.0),
                     Row(
                               children: <Widget>[
+                                 SizedBox(width: 25.0),
                                 Icon(Icons.restaurant_menu, size: 30.0, color: Colors.red[200]),
+                                 SizedBox(width: 25.0),
                                 Text('조리방법',
                                 style: TextStyle(
                                   fontFamily: 'Cute',
@@ -420,9 +432,37 @@ class _DetailPageState extends State<DetailPage> {
                         itemCount: getSteps.length,
                       ),
                     ),
-                    SizedBox(height: 20)
-                  ])]));
-            }));}}
+                    
+                    Container(
+                      width: screenWidth,
+    decoration: BoxDecoration(
+        color: Colors.white,
+        // border: Border.all(color: Colors.grey),
+        borderRadius:
+        // BorderRadius.circular(35),
+        BorderRadius.only(bottomLeft: Radius.circular(35)),
+        boxShadow: [
+          BoxShadow(
+              color: Colors.red[50],
+              offset: Offset(-4.0, 6.0),
+              spreadRadius: 4.0,
+              blurRadius: 1.0)
+        ]),
+    margin: EdgeInsets.all(10),
+    padding: EdgeInsets.all(20),
+    //  height: 5000,
+    // width: 300,
+    child: Text('저작자의 사전 동의 없이 이미지 및 문구의 무단 도용 및 복제를 금합니다.', style: TextStyle(fontSize: 30),)
+  )
+                  ]
+                  )
+                  ]
+                  )
+                  );
+            }
+            )
+            )
+            ;}}
   
 
 
