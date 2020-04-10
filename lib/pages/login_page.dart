@@ -1,5 +1,13 @@
+import 'dart:async';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
+
+//import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:recipe_app/widgets/carouse_two.dart';
 //import 'package:carousel_slider/carousel_slider.dart';
 
@@ -49,21 +57,28 @@ return Text('img');
 
 
     //CarouseTwo();
-  */
+  
 
 
 
 class LoginPage extends StatefulWidget {
  // LoginPage({Key key}) : super(key: key);
    
-   final DocumentSnapshot document;
-   List<dynamic> getItem;
-   LoginPage(this.document );
+ ///  final DocumentSnapshot document;
+   //List<dynamic> getItem;
+ //  LoginPage(this.document );
   
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
+
+class _LoginPageState extends State<LoginPage> {
+@override
+  Widget build(BuildContext context) {
+   return Text('로그인페이지');
+  }
+}
 
 class _LoginPageState extends State<LoginPage> {
  //     List<String> getItem = List.from(widget.document['ingredient'] ?? []);    
@@ -137,5 +152,61 @@ return ListView(
 //     snapshot.data.documents['index']
 //    .map((document) => new Text(document))).toList()}}
   
-    
+ */   
+  class LoginPage extends StatefulWidget {
+    LoginPage({Key key}) : super(key: key);
   
+    @override
+    _LoginPageState createState() => _LoginPageState();
+  }
+  
+  class _LoginPageState extends State<LoginPage> {
+    
+    final GoogleSignIn _googleSignIn = GoogleSignIn();
+    final FirebaseAuth _auth =  FirebaseAuth.instance;
+    
+    @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'HomeCooking Recipe',
+              style: GoogleFonts.pacifico(
+                fontSize: 40.0,
+                color: Colors.red[200]
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.all(50.0),
+            ),
+            SignInButton(
+              Buttons.Google,
+              text: "구글로 로그인",
+              onPressed: () {
+                _handleSignIn();
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // 구글 로그인을 수행하고 FirebaseUser를 반환
+  Future<FirebaseUser> _handleSignIn() async {
+    GoogleSignInAccount googleUser = await _googleSignIn.signIn();
+    GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+    // 구글 로그인으로 인증된 정보를 기반으로 FirebaseUser 객체를 구성
+    FirebaseUser user = (await _auth.signInWithCredential(
+            GoogleAuthProvider.getCredential(
+                idToken: googleAuth.idToken,
+                accessToken: googleAuth.accessToken)))
+        .user;
+    // 로그인 정보를 출력하는 로그
+    print("signed in " + user.displayName);
+    return user;
+  }
+  }
