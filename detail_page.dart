@@ -65,7 +65,10 @@ class _DetailPageState extends State<DetailPage> {
                       physics: const NeverScrollableScrollPhysics(),
                       scrollDirection: Axis.vertical,
                       children: <Widget>[ Column( children:<Widget>[
-                    Stack(children: <Widget>[
+             //      Hero(
+             //         tag: widget.document['img_url'],
+             //         child: 
+                      Stack(children: <Widget>[
                       // Container(
                       //  height: MediaQuery.of(context).size.height,
                       //    color: Color(0xFFFE7050),
@@ -119,9 +122,7 @@ class _DetailPageState extends State<DetailPage> {
                            
                             color: Colors.white),
                       ),
-                      //Hero(
-                      //tag: document.documentID,
-                      //child:
+                      
                       Container(
                           height: MediaQuery.of(context).size.height - 280.0,
                           decoration: BoxDecoration(
@@ -169,7 +170,7 @@ class _DetailPageState extends State<DetailPage> {
                                 Text(widget.document['title'],
                                 style: TextStyle(
                                   fontFamily: 'Cute',
-                                  fontSize: 70.0,
+                                  fontSize: 50.0,
                                   color: Colors.black87
                                 ),
                                 )
@@ -262,7 +263,30 @@ class _DetailPageState extends State<DetailPage> {
                     
                   ],
               ),
-                ),])),]),
+                ),])),
+                
+                Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+                padding: EdgeInsets.only(left: 15.0, top: 30.0),
+                child: InkWell( 
+                  onTap: ( ) {Navigator.pop(context);},
+                  child: Container(
+                    height: 40.0,
+                    width: 40.0,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle, 
+                        color: Colors.black12 
+                        //Color(0xFFA4B2AE)
+                        ),
+                    child: Center(
+                        child: Icon(Icons.arrow_back_ios,
+                            size: 20.0, color: Colors.white)))
+                            )
+                            )),
+                
+                ]),
+                //),
 
                 
 
@@ -432,9 +456,37 @@ class _DetailPageState extends State<DetailPage> {
                         itemCount: getSteps.length,
                       ),
                     ),
-                    SizedBox(height: 20)
-                  ])]));
-            }));}}
+                    
+                    Container(
+                      width: screenWidth,
+    decoration: BoxDecoration(
+        color: Colors.white,
+        // border: Border.all(color: Colors.grey),
+        borderRadius:
+        // BorderRadius.circular(35),
+        BorderRadius.only(bottomLeft: Radius.circular(35)),
+        boxShadow: [
+          BoxShadow(
+              color: Colors.red[50],
+              offset: Offset(-4.0, 6.0),
+              spreadRadius: 4.0,
+              blurRadius: 1.0)
+        ]),
+    margin: EdgeInsets.all(10),
+    padding: EdgeInsets.all(20),
+    //  height: 5000,
+    // width: 300,
+    child: Text('저작자의 사전 동의 없이 이미지 및 문구의 무단 도용 및 복제를 금합니다.', style: TextStyle(fontSize: 30),)
+  )
+                  ]
+                  )
+                  ]
+                  )
+                  );
+            }
+            )
+            )
+            ;}}
   
 
 
