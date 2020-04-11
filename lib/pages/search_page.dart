@@ -15,7 +15,7 @@ class _SearchPageState extends State<SearchPage> {
        
     );
   }
-}*/
+}
 
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -72,7 +72,7 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return new Scaffold(
         appBar: new AppBar(
-          title: Text('Firestore search'),
+          title: Text('레시피 검색'),
         ),
         body: ListView(children: <Widget>[
           Padding(
@@ -91,7 +91,7 @@ class _SearchPageState extends State<SearchPage> {
                     },
                   ),
                   contentPadding: EdgeInsets.only(left: 25.0),
-                  hintText: 'Search by name',
+                  hintText: '레시피검색하기',
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(4.0))),
             ),
@@ -137,5 +137,68 @@ class SearchService {
         .where('searchinfo',
             isEqualTo: val)
         .getDocuments();
+  }
+}
+
+*/
+//import 'dart:math';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+
+
+
+class SearchPage extends StatefulWidget {
+  @override
+  _SearchPageState createState() => _SearchPageState();
+}
+
+class _SearchPageState extends State<SearchPage> {
+  String name = "";
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: TextField(
+            onChanged: (val) => initiateSearch(val),
+          ),
+        ),
+        body: StreamBuilder<QuerySnapshot>(
+          stream: name != "" && name != null
+              ? Firestore.instance
+                  .collection('posts')
+                  .where("searchinfo", arrayContains: name)
+                  .snapshots()
+              : Firestore.instance.collection("posts").snapshots(),
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
+            switch (snapshot.connectionState) {
+              case ConnectionState.waiting:
+                return new Text('Loading...');
+              default:
+                return new ListView(
+                  children:
+                      snapshot.data.documents.map((DocumentSnapshot document) {
+                    return new ListTile(
+                      title: new Text(document['title'],
+                      //trailing: Text(document['chef'])
+                      ),
+                    );
+                  }).toList(),
+                );
+            }
+          },
+        ),
+      ),
+    );
+  }
+
+  void initiateSearch(String val) {
+    setState(() {
+      name = val;
+    });
   }
 }
