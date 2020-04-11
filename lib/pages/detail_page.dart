@@ -40,6 +40,7 @@ Widget buildContainer(Widget child) {
 class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
+   
     List<String> getItem = List.from(widget.document['ingredient'] ?? []);
     List<String> getSteps =
         List.from(widget.document['steps_description'] ?? []);
@@ -51,6 +52,7 @@ class _DetailPageState extends State<DetailPage> {
             stream: Firestore.instance
                 .collection('posts')
                 .document('documentID')
+                
                 .snapshots(),
             builder: (context, snapshot) {
               // DocumentSnapshot document = snapshot.data ;
@@ -65,7 +67,10 @@ class _DetailPageState extends State<DetailPage> {
                       physics: const NeverScrollableScrollPhysics(),
                       scrollDirection: Axis.vertical,
                       children: <Widget>[ Column( children:<Widget>[
-                    Stack(children: <Widget>[
+             //      Hero(
+             //         tag: widget.document['img_url'],
+             //         child: 
+                      Stack(children: <Widget>[
                       // Container(
                       //  height: MediaQuery.of(context).size.height,
                       //    color: Color(0xFFFE7050),
@@ -119,9 +124,7 @@ class _DetailPageState extends State<DetailPage> {
                            
                             color: Colors.white),
                       ),
-                      //Hero(
-                      //tag: document.documentID,
-                      //child:
+                      
                       Container(
                           height: MediaQuery.of(context).size.height - 280.0,
                           decoration: BoxDecoration(
@@ -131,7 +134,7 @@ class _DetailPageState extends State<DetailPage> {
                                   ),
                               image: DecorationImage(
                                   image:
-                                      NetworkImage(widget.document['img_url']),
+                                      NetworkImage( widget.document['img_url']),
                                   fit: BoxFit.cover))),
                                   Container(
                 height: MediaQuery.of(context).size.height - 280.0,
@@ -169,7 +172,7 @@ class _DetailPageState extends State<DetailPage> {
                                 Text(widget.document['title'],
                                 style: TextStyle(
                                   fontFamily: 'Cute',
-                                  fontSize: 70.0,
+                                  fontSize: 50.0,
                                   color: Colors.black87
                                 ),
                                 )
@@ -262,7 +265,30 @@ class _DetailPageState extends State<DetailPage> {
                     
                   ],
               ),
-                ),])),]),
+                ),])),
+                
+                Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+                padding: EdgeInsets.only(left: 15.0, top: 30.0),
+                child: InkWell( 
+                  onTap: ( ) {Navigator.pop(context);},
+                  child: Container(
+                    height: 40.0,
+                    width: 40.0,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle, 
+                        color: Colors.black12 
+                        //Color(0xFFA4B2AE)
+                        ),
+                    child: Center(
+                        child: Icon(Icons.arrow_back_ios,
+                            size: 20.0, color: Colors.white)))
+                            )
+                            )),
+                
+                ]),
+                //),
 
                 
 

@@ -13,35 +13,48 @@ import 'package:recipe_app/pages/detail_page.dart';
 
 import 'package:recipe_app/pages/search_page.dart';
 
+//import 'package:recipe_app/widgets/food_listpage.dart';
+
 
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key key, this.title,
+  this.document
+  }) : super(key: key);
 
-  
   final String title;
-
+  final DocumentSnapshot document;
+ 
   @override
   _MyHomePageState createState() => _MyHomePageState(); }
 
 
-class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin {
+class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 AnimationController _animationController;
 bool _sideMoved = false;
 Size _size;
 double sideWidth;
 int _sideDuration = 300;
 
+TabController tabController;
+
+
 @override 
 void initState() {
   _animationController = AnimationController(vsync: this, duration: Duration(milliseconds: _sideDuration));
+  
+  tabController = TabController(vsync:  this, length: 4);
+ 
 super.initState();
 }
+
 
 @override
 void dispose() {
   super.dispose();
 }
+
+
 
 
 @override
@@ -157,6 +170,7 @@ void dispose() {
    
 
    Widget _homeScreen() {
+    
      return AnimatedContainer(
        
        curve: Curves.easeIn,
@@ -168,9 +182,13 @@ void dispose() {
       0, 
       ),
       child:
-        Scrollbar(
+      //  Scrollbar(
         //scrollDirection: Axis.vertical,
-        child: ListView(children: <Widget>[ 
+      //  child: 
+        ListView(
+          scrollDirection: Axis.vertical,
+          children: <Widget>[ 
+         
         Stack (
           children: <Widget>[ 
         Container (
@@ -273,11 +291,26 @@ void dispose() {
             SizedBox(
                height: 55
             ),
-       //     HorizonPart()
-           
-         //   HorizonPart(),
-         //   HorizonPart()
-           
+       
+          
+       
+
+
+        Padding(
+          padding: EdgeInsets.all(15.0),
+          child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text('추천레시피',
+                        style: TextStyle(
+                            fontFamily: 'Cute', 
+                            fontSize: 40.0)),
+                    Text('전체보기',
+                        style: TextStyle(color: Colors.black54, fontSize: 30.0))
+                  ],
+                ),),
+
+
            
        StreamBuilder<QuerySnapshot> (
               stream: Firestore.instance.collection('posts').snapshots(),
@@ -344,8 +377,21 @@ void dispose() {
           ;}
           ),
 
+          Padding(
+          padding: EdgeInsets.only(bottom:15.0, left:15.0 ,right:15.0),
+          child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text('금주의 레시피',
+                        style: TextStyle(
+                            fontFamily: 'Cute', 
+                            fontSize: 40.0)),
+                    Text('전체보기',
+                        style: TextStyle(color: Colors.black54, fontSize: 30.0))
+                  ],
+                ),),
 
-
+          
 
           StreamBuilder<QuerySnapshot> (
               stream: Firestore.instance.collection('posts').snapshots(),
@@ -391,29 +437,25 @@ void dispose() {
                   
                   
                   }  
-              /*  scrollDirection: Axis.horizontal,
-                children: <Widget>[
-                  _buildCard(
-                      '시금치나물', '4.1','https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg','https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg'),
-                      //'assets/mountain.jpg'),
-                  _buildCard(
-                      '부추무침', '3.8', 'https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg','https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg'),
-                   _buildCard(
-                      '파스타알리오', '4.1','https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg','https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg'),
-                      //'assets/mountain.jpg'),
-                  _buildCard(
-                      '숙주무침', '3.8', 'https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg','https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg'),
-
-                      //'assets/kathmandu.jpg')
-                ],
-              ),*/
-
+            
             ))
           ;}
           ),
-
-
-
+/*
+           Padding(
+          padding: EdgeInsets.only(bottom:15.0, left:15.0 ,right:15.0),
+          child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text('레시피',
+                        style: TextStyle(
+                            fontFamily: 'Cute', 
+                            fontSize: 40.0)),
+                    Text('전체보기',
+                        style: TextStyle(color: Colors.black54, fontSize: 30.0))
+                  ],
+                ),),
+        
 
           StreamBuilder<QuerySnapshot> (
               stream: Firestore.instance.collection('posts').snapshots(),
@@ -446,42 +488,312 @@ void dispose() {
                     
            //     List<DocumentSnapshot> get documents
 
-                  return _buildCard(context, snapshot.data.documents[index]);
+                  return _buildvertiCard(context, snapshot.data.documents[index]);
                         
 
                   
                   
                   }  
-              /*  scrollDirection: Axis.horizontal,
-                children: <Widget>[
-                  _buildCard(
-                      '시금치나물', '4.1','https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg','https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg'),
-                      //'assets/mountain.jpg'),
-                  _buildCard(
-                      '부추무침', '3.8', 'https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg','https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg'),
-                   _buildCard(
-                      '파스타알리오', '4.1','https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg','https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg'),
-                      //'assets/mountain.jpg'),
-                  _buildCard(
-                      '숙주무침', '3.8', 'https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg','https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg'),
-
-                      //'assets/kathmandu.jpg')
-                ],
-              ),*/
+              
 
             )
           ;}
-          )
+          ), */
+
+          TabBar(
+          
+          controller:  tabController,
+          indicatorColor: Color(0xFFFE8A7E),
+          indicatorSize: TabBarIndicatorSize.label,
+          indicatorWeight: 4.0,
+          isScrollable: true,
+          labelColor:Color(0xffF68D7F),
+         //  Color(0xFF440206),
+          unselectedLabelColor: 
+         // Color(0xffF68D7F),
+          Color(0xFF440206),
+          tabs: <Widget>[
+                Tab(
+                  child: Text(
+                    '밑반찬',
+                    style: TextStyle(
+                      fontFamily: 'Cute',
+                      fontSize: 40.0,
+                    ),
+                  ),
+                ),
+                
+                Tab(
+                  child: Text(
+                    '메인반찬',
+                    style: TextStyle(
+                      fontFamily: 'Cute',
+                      fontSize: 40.0,
+                    ),
+                  ),
+                ),
+                
+                Tab(
+                  child: Text(
+                    '샐러드',
+                    style: TextStyle(
+                      fontFamily: 'Cute',
+                      fontSize: 40.0,
+                    ),
+                  ),
+                ),
+                
+                Tab(
+                  child: Text(
+                    '국수/면',
+                    style: TextStyle(
+                      fontFamily: 'Cute',
+                      fontSize: 40.0,
+                    ),
+                  ),
+                ),
+              ],
+        ),
+
+        
+        SizedBox(height: 10.0),
+        
+          Container(
+          padding: EdgeInsets.all(15.0) ,
+          height: MediaQuery.of(context).size.height -200,
+          child: 
+          TabBarView(
+            controller: tabController,
+      //      physics: const NeverScrollableScrollPhysics(),
+            children: <Widget>[
 
 
 
+
+
+               StreamBuilder<QuerySnapshot> (
+              stream: Firestore.instance.collection('posts').snapshots(),
+                
+               builder: (context, snapshot) { 
+               return 
+              // ListView.builder(
+              //  scrollDirection = Axis.horizontal,
+              //  itemcount: snapshot.data.documents.length,
+              //  itemBuilder(BuildContext context, int index)
+                ListView.builder(
+                 
+               //   key: new PageStorageKey('ListView'),
+                //  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+               //     crossAxisCount: 1,
+                  //  childAspectRatio: 1.0,
+                  //  mainAxisSpacing: 1.0,
+                  //  crossAxisSpacing: 1.0
+              //    ),
+                // physics: PageScrollPhysics(), // this is what you are looking for
+                 //  scrollDirection: Axis.horizontal,
+              //   physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+               //   scrollDirection: Axis.vertical,
+                    itemCount: snapshot?.data?.documents?.length ?? 0,
+                    
+                    itemBuilder:(BuildContext context, int index){
+                    //  DocumentSnapshot recipepost = snapshot.data.documents[index];
+                    if (!snapshot.hasData) {
+                   return Center(child :Text ('로딩중'));
+                    }
+                    
+           //     List<DocumentSnapshot> get documents
+
+                  return _buildvertiCard(context, snapshot.data.documents[index]);
+                        
+
+                  
+                  
+                  }  
+              
+
+            )
+          ;}
+          ),
+
+
+          StreamBuilder<QuerySnapshot> (
+              stream: Firestore.instance.collection('posts')
+                .where('type', isEqualTo: 'a')
+                .snapshots(),
+               builder: (
+               //  Buildcontext 
+                 context,  
+              //   AsyncSnapshot<DocumentSnapshot> 
+                 snapshot) { 
+               return 
+              // ListView.builder(
+              //  scrollDirection = Axis.horizontal,
+              //  itemcount: snapshot.data.documents.length,
+              //  itemBuilder(BuildContext context, int index)
+                ListView.builder(
+                 
+               //   key: new PageStorageKey('ListView'),
+                //  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+               //     crossAxisCount: 1,
+                  //  childAspectRatio: 1.0,
+                  //  mainAxisSpacing: 1.0,
+                  //  crossAxisSpacing: 1.0
+              //    ),
+                // physics: PageScrollPhysics(), // this is what you are looking for
+                 //  scrollDirection: Axis.horizontal,
+              //   physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+               //   scrollDirection: Axis.vertical,
+                    itemCount: snapshot?.data?.documents?.length ?? 0,
+                    
+                    itemBuilder:(BuildContext context, int index){
+                    //  DocumentSnapshot recipepost = snapshot.data.documents[index];
+                    if (!snapshot.hasData) {
+                   return Center(child :Text ('로딩중'));
+                    }
+                    
+           //     List<DocumentSnapshot> get documents
+
+                  return _buildvertiCard(context, snapshot.data.documents[index]);
+                        
+
+                  
+                  
+                  }  
+              
+
+            )
+          ;}
+          ),
+
+
+
+          StreamBuilder<QuerySnapshot> (
+              stream: Firestore.instance.collection('posts').snapshots(),
+                
+               builder: (context, snapshot) { 
+               return 
+              // ListView.builder(
+              //  scrollDirection = Axis.horizontal,
+              //  itemcount: snapshot.data.documents.length,
+              //  itemBuilder(BuildContext context, int index)
+                ListView.builder(
+                 
+               //   key: new PageStorageKey('ListView'),
+                //  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+               //     crossAxisCount: 1,
+                  //  childAspectRatio: 1.0,
+                  //  mainAxisSpacing: 1.0,
+                  //  crossAxisSpacing: 1.0
+              //    ),
+                // physics: PageScrollPhysics(), // this is what you are looking for
+                 //  scrollDirection: Axis.horizontal,
+              //   physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+               //   scrollDirection: Axis.vertical,
+                    itemCount: snapshot?.data?.documents?.length ?? 0,
+                    
+                    itemBuilder:(BuildContext context, int index){
+                    //  DocumentSnapshot recipepost = snapshot.data.documents[index];
+                    if (!snapshot.hasData) {
+                   return Center(child :Text ('로딩중'));
+                    }
+                    
+           //     List<DocumentSnapshot> get documents
+
+                  return _buildvertiCard(context, snapshot.data.documents[index]);
+                        
+
+                  
+                  
+                  }  
+              
+
+            )
+          ;}
+          ),
+
+
+
+          StreamBuilder<QuerySnapshot> (
+              stream: Firestore.instance.collection('posts').snapshots(),
+                
+               builder: (context, snapshot) { 
+               return 
+              // ListView.builder(
+              //  scrollDirection = Axis.horizontal,
+              //  itemcount: snapshot.data.documents.length,
+              //  itemBuilder(BuildContext context, int index)
+                ListView.builder(
+                 
+               //   key: new PageStorageKey('ListView'),
+                //  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+               //     crossAxisCount: 1,
+                  //  childAspectRatio: 1.0,
+                  //  mainAxisSpacing: 1.0,
+                  //  crossAxisSpacing: 1.0
+              //    ),
+                // physics: PageScrollPhysics(), // this is what you are looking for
+                 //  scrollDirection: Axis.horizontal,
+              //   physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+               //   scrollDirection: Axis.vertical,
+                    itemCount: snapshot?.data?.documents?.length ?? 0,
+                    
+                    itemBuilder:(BuildContext context, int index){
+                    //  DocumentSnapshot recipepost = snapshot.data.documents[index];
+                    if (!snapshot.hasData) {
+                   return Center(child :Text ('로딩중'));
+                    }
+                    
+           //     List<DocumentSnapshot> get documents
+
+                  return _buildvertiCard(context, snapshot.data.documents[index]);
+                        
+
+                  
+                  
+                  }  
+              
+
+            )
+          ;}
+          ),
+
+
+          
+
+
+
+
+            
+
+
+
+
+               
+            ],
+          ),)
+        
+
+
+          
 
 
 
 
 
           
-          ])])])));}
+          ]
+          )
+          ]
+          )
+          ]
+          
+          )
+         // )
+          );}
 
 
 
@@ -492,6 +804,7 @@ void dispose() {
    // return Image.network(document['img_url'], fit: BoxFit.cover);} 
     
     return
+    //Hero(tag: document.documentID, child:
     Padding(
         padding: EdgeInsets.all(10.0),
         child: InkWell(
@@ -502,7 +815,7 @@ void dispose() {
           },
           child: Stack(
             children: <Widget>[
-             Hero(tag: document.documentID, child: Container (
+             Container (
                 height: 270.0,
                 width: 300.0,
                 
@@ -514,7 +827,7 @@ void dispose() {
                           document['img_url']),
                         //  '${recipepost['img_url']}'),
                          fit: BoxFit.cover)),
-              ),),
+              ),
               //make the shade a bit deeper.
               Container(
                 height: 270.0,
@@ -599,7 +912,7 @@ void dispose() {
                        //    backgoundImage:  NetworkImage("https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg"),
                        //
                        Positioned(
-                          left: 40.0,
+                          left: 10.0,
                           child: Container(
                             height: 40.0,
                             width: 40.0,
@@ -608,7 +921,7 @@ void dispose() {
                           //      image: DecorationImage(
                            //    image: NetworkImage(document['chef_img']), fit: BoxFit.cover)),
                                child: Center(
-                              child: Text('+17..',
+                              child: Text('',
                                   style: TextStyle(
                                     fontSize: 14.0, color: Colors.black)),
                             ),
@@ -619,7 +932,158 @@ void dispose() {
                     
                           )
                           ]
-                          )]))])));}
+                          )]))])));
+                       //   );
+                          }
+
+
+  
+
+   Widget _buildvertiCard(BuildContext context, DocumentSnapshot document) {
+     //String title, String rating, String imgurl, String imguri) {
+   // return Image.network(document['img_url'], fit: BoxFit.cover);} 
+    
+    return
+    Padding(
+        padding: EdgeInsets.all(17.0),
+        child: InkWell(
+          onTap: () {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => DetailPage(document)));
+                //DetailPage(document)));
+          },
+          child: Stack(
+            children: <Widget>[
+             Hero(tag: document['img_url'], child: Container (
+                height: 270.0,
+                width: MediaQuery.of(context).size.width,
+                
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.0),
+                   image: DecorationImage(
+                        image: NetworkImage(
+                        
+                          document['img_url']),
+                        //  '${recipepost['img_url']}'),
+                         fit: BoxFit.cover)),
+              ),),
+              //make the shade a bit deeper.
+              Container(
+                height: 270.0,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.0),
+                    color: Colors.black.withOpacity(0.3)),
+              ),
+              Positioned(
+                top: 10.0,
+                left: 10.0,
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      height: 50.0,
+                      width: 110.0,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.0),
+                          color: Colors.black.withOpacity(0.2)),
+                      child: Center(
+                          child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                         // Icon(Icons.star, color: Colors.white, size: 12.0),
+                         // SizedBox(width: 5.0),
+                         
+                          Text(
+                            '자세히보기',
+                            style: TextStyle(color: Colors.white, fontSize: 30.0, ),
+                          )
+                        ],
+                      )),
+                    ),
+                 //   SizedBox(width: 50.0),
+                 //   Text(
+                  //    'More',
+                  //    style: TextStyle(
+                  //        color: Colors.white, 
+                          //fontFamily: 'Opensans'
+                  //        ),
+                  //  ),
+                   // SizedBox(width: 7.0),
+                    //this should be an iconbutton in a real app.
+                 //   Icon(Icons.arrow_drop_down, color: Colors.white, size: 25.0)
+                  ],
+                ),
+              ),  
+              Positioned(
+                top: 55.0,
+                left: 20.0,
+                child: Container(
+                  width: 220.0,
+                  child: Text(document['title'],
+                      style: TextStyle(
+                        //  fontFamily: 'Opensans',
+                          fontSize: 55.0,
+                          color: Colors.white,
+                          )),
+                ),
+              ),
+              Positioned(
+                  top: 200.0,
+                  left: 20.0,
+                  child: Row(children: [
+                    Text(document['chef'],
+                        style: TextStyle(
+                     //       fontFamily: 'Opensans',
+                            fontSize: 30.0,
+                            color: Colors.white)
+                           // fontWeight: FontWeight.w600)
+                           ),
+                   // SizedBox(width: 15.0),
+                    Stack(
+                      children: <Widget>[
+                         Container(height: 40.0, width: 100.0),
+                        //Container(
+                        //  height: 60.0,
+                        //  width: 60.0,
+                        //  decoration: BoxDecoration(
+                        //      borderRadius: BorderRadius.circular(100.0),
+                       //  CircleAvatar(
+                       //    backgoundImage:  NetworkImage("https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg"),
+                       //
+                       Positioned(
+                          left: 10.0,
+                          child: Container(
+                            height: 40.0,
+                            width: 40.0,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20.0),),
+                          //      image: DecorationImage(
+                           //    image: NetworkImage(document['chef_img']), fit: BoxFit.cover)),
+                               child: Center(
+                              child: Text('',
+                                  style: TextStyle(
+                                    fontSize: 14.0, color: Colors.black)),
+                            ),
+                          ),
+                          
+                          
+                          
+                    
+                          )
+                          ]
+                          ),
+                          ]
+                          )
+                          )
+                          ]
+                          )
+                          )
+                          );
+                          }                          
+
+
+
+
                           }
 
 
