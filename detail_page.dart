@@ -40,6 +40,7 @@ Widget buildContainer(Widget child) {
 class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
+   
     List<String> getItem = List.from(widget.document['ingredient'] ?? []);
     List<String> getSteps =
         List.from(widget.document['steps_description'] ?? []);
@@ -51,6 +52,7 @@ class _DetailPageState extends State<DetailPage> {
             stream: Firestore.instance
                 .collection('posts')
                 .document('documentID')
+                
                 .snapshots(),
             builder: (context, snapshot) {
               // DocumentSnapshot document = snapshot.data ;
@@ -132,7 +134,7 @@ class _DetailPageState extends State<DetailPage> {
                                   ),
                               image: DecorationImage(
                                   image:
-                                      NetworkImage(widget.document['img_url']),
+                                      NetworkImage( widget.document['img_url']),
                                   fit: BoxFit.cover))),
                                   Container(
                 height: MediaQuery.of(context).size.height - 280.0,
@@ -226,13 +228,17 @@ class _DetailPageState extends State<DetailPage> {
                           height: 60.0,
                           width: 40.0,
                           decoration: BoxDecoration(
-                            color: Colors.grey.withOpacity(0.1),
+                            color: Colors.black.withOpacity(0.1),
                             borderRadius: BorderRadius.circular(20.0)
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: <Widget>[
-                              Icon(Icons.favorite_border, color: Colors.black, size: 20.0),
+                              IconButton(
+                              onPressed: () => {},
+                              icon: Icon(Icons.bookmark), 
+                              color: Colors.black, 
+                              iconSize: 20.0),
                               SizedBox(height: 7.0)
                             ],
                           ),
