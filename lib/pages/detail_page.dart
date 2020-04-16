@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:firebase_auth/firebase_auth.dart';
+
 
 class DetailPage extends StatefulWidget {
   final DocumentSnapshot document;
-
-  DetailPage(this.document);
+  //final FirebaseUser user;
+  DetailPage(this.document, 
+  //this.user
+  );
+ 
 
   //List<dynamic> getItem;
 
@@ -146,7 +151,40 @@ class _DetailPageState extends State<DetailPage> {
                                   ),
                    // .circular(50.0),
                     color: Colors.black.withOpacity(0.2)),
+                    
               ),
+              Positioned(
+                top: 40.0,
+                right: 20.0,
+                child: Container(
+                  width: 220.0,
+                  child: Text(widget.document['blog'],
+                      style: TextStyle(
+                        //  fontFamily: 'Opensans',
+                          fontSize: 20.0,
+                          color: Colors.white,
+                          )),
+                ),
+              ),
+              Align(
+            alignment: Alignment.topLeft,
+            child: Padding(
+                padding: EdgeInsets.only(left: 15.0, top: 30.0),
+                child: InkWell( 
+                  onTap: ( ) {Navigator.pop(context);},
+                  child: Container(
+                    height: 40.0,
+                    width: 40.0,
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle, 
+                        color: Colors.black12 
+                        //Color(0xFFA4B2AE)
+                        ),
+                    child: Center(
+                        child: Icon(Icons.arrow_back_ios,
+                            size: 25.0, color: Colors.white)))
+                            )
+                            )),
               
                           
                    
@@ -224,21 +262,7 @@ class _DetailPageState extends State<DetailPage> {
                           ],
                           
                         ),
-                        Container(
-                          height: 60.0,
-                          width: 40.0,
-                          decoration: BoxDecoration(
-                            color: Colors.grey.withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(20.0)
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              Icon(Icons.favorite_border, color: Colors.black, size: 20.0),
-                              SizedBox(height: 7.0)
-                            ],
-                          ),
-                        )
+                       
                       ],
                     ),
                   ),
@@ -267,25 +291,6 @@ class _DetailPageState extends State<DetailPage> {
               ),
                 ),])),
                 
-                Align(
-            alignment: Alignment.topLeft,
-            child: Padding(
-                padding: EdgeInsets.only(left: 15.0, top: 30.0),
-                child: InkWell( 
-                  onTap: ( ) {Navigator.pop(context);},
-                  child: Container(
-                    height: 40.0,
-                    width: 40.0,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle, 
-                        color: Colors.black12 
-                        //Color(0xFFA4B2AE)
-                        ),
-                    child: Center(
-                        child: Icon(Icons.arrow_back_ios,
-                            size: 20.0, color: Colors.white)))
-                            )
-                            )),
                 
                 ]),
                 //),
@@ -488,10 +493,10 @@ class _DetailPageState extends State<DetailPage> {
             }
             )
             )
-            ;}}
+            ;}
   
 
-
+}
 /*
                 Padding(
                   padding: EdgeInsets.only(top: 15.0, left: 15.0),

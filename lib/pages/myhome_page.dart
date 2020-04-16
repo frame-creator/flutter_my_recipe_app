@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 //import 'package:carousel_slider/carousel_slider.dart';
 import 'package:recipe_app/widgets/carouse_with_indicator.dart';
@@ -11,25 +13,42 @@ import 'package:recipe_app/pages/detail_page.dart';
 //import 'package:recipe_app/pages/bookmark_page.dart';
 //import 'package:recipe_app/pages/login_page.dart';
 
-import 'package:recipe_app/pages/search_page.dart';
+
 
 //import 'package:recipe_app/widgets/food_listpage.dart';
 
 
 
+
+import 'package:recipe_app/widgets/senddata.dart';
+//import 'package:recipe_app/provider/provider_data.dart';
+//import 'package:recipe_app/provider/provider.dart';
+
+
+
+
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title,
-  this.document
+  this.document, 
   }) : super(key: key);
+
+  
 
   final String title;
   final DocumentSnapshot document;
- 
+
+   
+
+ //  String toggleData =  myUserData.data.userKey;
+
   @override
   _MyHomePageState createState() => _MyHomePageState(); }
 
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
+
+
+
 AnimationController _animationController;
 bool _sideMoved = false;
 Size _size;
@@ -61,7 +80,7 @@ void dispose() {
   Widget build(BuildContext context) {
     _size = MediaQuery.of(context).size;
     sideWidth = _size.width / 2;
-    return Scaffold(
+    return  Scaffold(
       
       body: 
       
@@ -80,6 +99,7 @@ void dispose() {
 
      
 
+    
 
       
     /*  floatingActionButton: FloatingActionButton(
@@ -94,7 +114,8 @@ void dispose() {
   
       
    Widget _sideScreen() {
-     return AnimatedContainer(
+     return
+      AnimatedContainer(
        
        width : sideWidth,
        curve: Curves.easeIn,
@@ -133,21 +154,24 @@ void dispose() {
             ),
             
             SizedBox(
-
-              child: Text('추천 레시피',
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.black87, fontSize: 40, fontWeight: FontWeight.bold
-               ), 
-        )   
+               height: 20,
+          //    child: Text(
+          //      '추천 레시피',
+                
+          //    textAlign: TextAlign.center,
+          //    style: TextStyle(color: Colors.black87, fontSize: 40, fontWeight: FontWeight.bold
+          //     ), 
+     //   )   
            ),
            
            SizedBox(
-              child: Text('인기 레시피',
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.black87, fontSize: 40, fontWeight: FontWeight.bold
-               ),
+              height: 20,
+           //   child: Text('인기 레시피',
+          //    textAlign: TextAlign.center,
+           //   style: TextStyle(color: Colors.black87, fontSize: 40, fontWeight: FontWeight.bold
+           //    ),
              
-             ),  
+           //  ),  
             
            ),
            SizedBox(
@@ -165,13 +189,15 @@ void dispose() {
         )
       )
      ),
-     );}
+     )
+     ;}
      
    
 
    Widget _homeScreen() {
     
-     return AnimatedContainer(
+     return 
+  AnimatedContainer(
        
        curve: Curves.easeIn,
        color:  _sideMoved ?  Colors.red[200]: Colors.white,
@@ -191,9 +217,15 @@ void dispose() {
          
         Stack (
           children: <Widget>[ 
+         
+
         Container (
           height: 430.0,
           decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [Colors.white, Colors.red[200]]),
             borderRadius:
             BorderRadius.only(bottomLeft: Radius.circular(50.0)),
             color: 
@@ -225,8 +257,12 @@ void dispose() {
           )),
           */
         Container(
-          height: 140.0,
+          height: 143.0,
           decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [Color(0xffFCE183), Color(0xffFF7375)]),
             borderRadius:
             BorderRadius.only(bottomLeft: Radius.circular(75.0)),
             color: 
@@ -264,18 +300,30 @@ void dispose() {
             
               ),
 
+              
               IconButton(
                 onPressed: () {
-                  Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => SearchPage()));
-              //     showSearch(context : context, delegate: RecipeSearch() );  
-
+                //  firestoreProvider.getData();
+                  
 
                 },
-                icon: Icon(Icons.search),
+                icon: Icon(Icons.access_alarm),
                 iconSize: 26,
                 color: Colors.white,
-              )
+              ),
+              IconButton(
+                onPressed: () {
+              //    firestoreProvider.sendData().then((_) {
+              //      print('sended');
+              //    }
+              //    );
+
+                },
+                icon: Icon(Icons.backup),
+                iconSize: 26,
+                color: Colors.white,
+              ),
+              
               
               
             ],
@@ -284,17 +332,48 @@ void dispose() {
                height: 20
             ),
             AnimatedText(),
-            SizedBox(
-               height: 55
+            Text(
+              ''
             ),
             CarouseWithIndicator(),
             SizedBox(
-               height: 55
+               height: 95
             ),
        
+
+      Stack (
+          children: <Widget>[ 
+         Container (
+          height: 410.0,
+          decoration: BoxDecoration(
+           // borderRadius:
+           // BorderRadius.only(bottomLeft: Radius.circular(50.0)),
+            color: 
+            //Color(0xFFFE8A7E)
+            //Color(0xFFFD7465)
+            Colors.white,
+          ),),
+
+        Container (
+          height: 410.0,
+          decoration: BoxDecoration(
+            borderRadius:
+            BorderRadius.only(bottomLeft: Radius.circular(50.0)),
+            boxShadow: [
+                           BoxShadow(
+                           color: Colors.red.withOpacity(0.2),
+                            offset: Offset(-6.0,  6.0),
+                            spreadRadius: 0.0,
+                            blurRadius: 7.0)],
+
+            color: 
+            //Color(0xFFFE8A7E)
+            //Color(0xFFFD7465)
+             Colors.white,
+          )),
           
        
-
+         Column(children: <Widget>[
 
         Padding(
           padding: EdgeInsets.all(15.0),
@@ -376,10 +455,47 @@ void dispose() {
             ))
           ;}
           ),
+         ]),
+          ]),
+          
 
+          Stack (
+          children: <Widget>[ 
+         Container (
+          height: 390.0,
+          decoration: BoxDecoration(
+           // borderRadius:
+           // BorderRadius.only(bottomLeft: Radius.circular(50.0)),
+            color: 
+            //Color(0xFFFE8A7E)
+            //Color(0xFFFD7465)
+            Colors.white,
+          ),),
+
+        Container (
+          height: 390.0,
+          decoration: BoxDecoration(
+            borderRadius:
+            BorderRadius.only(bottomLeft: Radius.circular(50.0)),
+            boxShadow: [
+                           BoxShadow(
+                           color: Colors.red.withOpacity(0.2),
+                            offset: Offset(-6.0,  6.0),
+                            spreadRadius: 0.0,
+                            blurRadius: 7.0)],
+            color: 
+            //Color(0xFFFE8A7E)
+            //Color(0xFFFD7465)
+             Colors.white,
+          )),
+          Column(children: <Widget>[
+         // Padding(
+         // padding: EdgeInsets.only(bottom:15.0, left:15.0 ,right:15.0),
+          //child: 
           Padding(
-          padding: EdgeInsets.only(bottom:15.0, left:15.0 ,right:15.0),
-          child: Row(
+          padding: EdgeInsets.all(15.0),
+          child: 
+          Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text('금주의 레시피',
@@ -390,6 +506,7 @@ void dispose() {
                         style: TextStyle(color: Colors.black54, fontSize: 30.0))
                   ],
                 ),),
+                //),
 
           
 
@@ -402,7 +519,7 @@ void dispose() {
                                   //  minWidth: 144,
                                  // minHeight: 244,
                                   //  maxWidth: 154,
-                                  maxHeight: 354,
+                                  maxHeight: 304,
                                 ),
                                 child:
               // ListView.builder(
@@ -441,6 +558,8 @@ void dispose() {
             ))
           ;}
           ),
+
+          ]),]),
 /*
            Padding(
           padding: EdgeInsets.only(bottom:15.0, left:15.0 ,right:15.0),
@@ -513,7 +632,9 @@ void dispose() {
          // Color(0xffF68D7F),
           Color(0xFF440206),
           tabs: <Widget>[
-                Tab(
+                Padding(
+          padding: EdgeInsets.all(20.0),
+          child: Tab(
                   child: Text(
                     '밑반찬',
                     style: TextStyle(
@@ -521,7 +642,7 @@ void dispose() {
                       fontSize: 40.0,
                     ),
                   ),
-                ),
+                ),),
                 
                 Tab(
                   child: Text(
@@ -573,6 +694,7 @@ void dispose() {
 
                StreamBuilder<QuerySnapshot> (
               stream: Firestore.instance.collection('posts').snapshots(),
+              
                 
                builder: (context, snapshot) { 
                return 
@@ -704,7 +826,7 @@ void dispose() {
 
                   return _buildvertiCard(context, snapshot.data.documents[index]);
                         
-
+            
                   
                   
                   }  
@@ -712,6 +834,7 @@ void dispose() {
 
             )
           ;}
+          
           ),
 
 
@@ -793,9 +916,10 @@ void dispose() {
           
           )
          // )
-          );}
+          )
+          ;}
 
-
+//],),);}
 
   
 
@@ -803,18 +927,20 @@ void dispose() {
      //String title, String rating, String imgurl, String imguri) {
    // return Image.network(document['img_url'], fit: BoxFit.cover);} 
     
-    return
+    return 
     //Hero(tag: document.documentID, child:
+    
     Padding(
         padding: EdgeInsets.all(10.0),
-        child: InkWell(
+       
+          child: InkWell(
           onTap: () {
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: (context) => DetailPage(document)));
                 //DetailPage(document)));
-          },
-          child: Stack(
+          }, child : Stack(
             children: <Widget>[
+              
              Container (
                 height: 270.0,
                 width: 300.0,
@@ -892,13 +1018,30 @@ void dispose() {
                   top: 200.0,
                   left: 20.0,
                   child: Row(children: [
-                    Text(document['chef'],
+                 /*   widget.document['likedUsers']?.contains(widget.user.email) ??
+                      false
+                  ? GestureDetector(
+                      onTap: _unlike,
+                      child: Icon(
+                        Icons.favorite,
+                        color: Colors.red,
+                      ),
+                    )
+                  : GestureDetector(
+                      onTap: _like,
+                      child: Icon(Icons.favorite_border),
+                    ),*/
+
+                    
+                    Text(
+                     document['chef'],
                         style: TextStyle(
                      //       fontFamily: 'Opensans',
                             fontSize: 30.0,
                             color: Colors.white)
                            // fontWeight: FontWeight.w600)
                            ),
+                           
                    // SizedBox(width: 15.0),
                     Stack(
                       children: <Widget>[
@@ -911,29 +1054,11 @@ void dispose() {
                        //  CircleAvatar(
                        //    backgoundImage:  NetworkImage("https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg"),
                        //
-                       Positioned(
-                          left: 10.0,
-                          child: Container(
-                            height: 40.0,
-                            width: 40.0,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20.0),),
-                          //      image: DecorationImage(
-                           //    image: NetworkImage(document['chef_img']), fit: BoxFit.cover)),
-                               child: Center(
-                              child: Text('',
-                                  style: TextStyle(
-                                    fontSize: 14.0, color: Colors.black)),
-                            ),
-                          ),
+                       
                           
-                          
-                          
-                    
-                          )
                           ]
                           )]))])));
-                       //   );
+                          
                           }
 
 
@@ -951,8 +1076,7 @@ void dispose() {
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: (context) => DetailPage(document)));
                 //DetailPage(document)));
-          },
-          child: Stack(
+          }, child : Stack(
             children: <Widget>[
              Hero(tag: document['img_url'], child: Container (
                 height: 270.0,
@@ -1031,7 +1155,11 @@ void dispose() {
                   top: 200.0,
                   left: 20.0,
                   child: Row(children: [
-                    Text(document['chef'],
+                    
+            
+                    Text(
+                     
+                      document['chef'],
                         style: TextStyle(
                      //       fontFamily: 'Opensans',
                             fontSize: 30.0,
@@ -1041,7 +1169,8 @@ void dispose() {
                    // SizedBox(width: 15.0),
                     Stack(
                       children: <Widget>[
-                         Container(height: 40.0, width: 100.0),
+                         Container(height: 40.0, width: 50.0),
+                        
                         //Container(
                         //  height: 60.0,
                         //  width: 60.0,
@@ -1050,40 +1179,21 @@ void dispose() {
                        //  CircleAvatar(
                        //    backgoundImage:  NetworkImage("https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg"),
                        //
-                       Positioned(
-                          left: 10.0,
-                          child: Container(
-                            height: 40.0,
-                            width: 40.0,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20.0),),
-                          //      image: DecorationImage(
-                           //    image: NetworkImage(document['chef_img']), fit: BoxFit.cover)),
-                               child: Center(
-                              child: Text('',
-                                  style: TextStyle(
-                                    fontSize: 14.0, color: Colors.black)),
-                            ),
-                          ),
-                          
-                          
-                          
-                    
-                          )
                           ]
                           ),
                           ]
                           )
                           )
                           ]
-                          )
-                          )
+                          ))
+                          
                           );
-                          }                          
+   
 
-
-
+   
+} 
 }
+
 
 /*
 class RecipeSearch extends SearchDelegate {
