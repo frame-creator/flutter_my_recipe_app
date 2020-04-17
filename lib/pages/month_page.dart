@@ -3,14 +3,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:recipe_app/pages/detail_page.dart';
 import 'package:recipe_app/widgets/progressindicator.dart';
 
-class RecommandPage extends StatefulWidget {
-  RecommandPage({Key key}) : super(key: key);
+class MonthPage extends StatefulWidget {
+  MonthPage({Key key}) : super(key: key);
 
   @override
-  _RecommandPageState createState() => _RecommandPageState();
+  _MonthPageState createState() => _MonthPageState();
 }
 
-class _RecommandPageState extends State<RecommandPage> {
+class _MonthPageState extends State<MonthPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold( body: 
@@ -54,7 +54,7 @@ ListView(
                 top: 35, 
                 bottom: 5),  
               child:Text(
-              '추천레시피',
+              '이달의 레시피',
               style: TextStyle(
                             fontFamily: 'Cute', 
                             fontSize: 50.0,

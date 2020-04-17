@@ -12,7 +12,13 @@ class HorizonPart extends StatefulWidget {
 class _HorizonPartState extends State<HorizonPart> {
   @override
   Widget build(BuildContext context) {
-    return Column( children: <Widget> [Padding(
+ //   return StreamBuilder<QuerySnapshot>(
+ //    stream: Firestore.instance.collection('posts').snapshots(),
+    
+ //   builder: (context, snapshot) { 
+      return Scaffold (
+        body:
+  /*   Column( children: <Widget> [Padding(
             padding: const EdgeInsets.all(30.0),
             child: Container(
               width: MediaQuery.of(context).size.width,
@@ -28,15 +34,37 @@ class _HorizonPartState extends State<HorizonPart> {
                 ],
               ),
             ),
-    ),
-          Padding(
-            padding: const EdgeInsets.only(left: 15.0),
-            child: Container(
-              height: 300.0,
+    ), */
+      //    Padding(
+       //    padding: const EdgeInsets.only(left: 15.0),
+       //     child: Container(
+       //      height: 300.0,
               
 
-              child: ListView(
-                scrollDirection: Axis.horizontal,
+        //      child: 
+              StreamBuilder<QuerySnapshot> (
+              stream: Firestore.instance.collection('posts').snapshots(),
+    
+               builder: (context, snapshot) { 
+               return 
+              // ListView.builder(
+              //  scrollDirection = Axis.horizontal,
+                 
+              //  itemcount: snapshot.data.documents.length,
+              //  itemBuilder(BuildContext context, int index)
+                GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2),
+                 //   childAspectRatio: 1.0,
+                 //   mainAxisSpacing: 1.0,
+                  //  crossAxisSpacing: 1.0),
+                    itemCount: snapshot.data.documents.length,
+                    itemBuilder:(BuildContext context, int index){
+                    
+                    
+                
+                  return _buildCard(snapshot.data.documents[index]);}
+              /*  scrollDirection: Axis.horizontal,
                 children: <Widget>[
                   _buildCard(
                       '시금치나물', '4.1','https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg','https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg'),
@@ -51,14 +79,19 @@ class _HorizonPartState extends State<HorizonPart> {
 
                       //'assets/kathmandu.jpg')
                 ],
-              ),
-            ),
-          ),]);}}
+              ),*/
+
+            )
+          ;}));}}
         
   
 
-   _buildCard(String title, String rating, String imgurl, String imguri) {
-    return Padding(
+   Widget _buildCard(DocumentSnapshot document) {
+     //String title, String rating, String imgurl, String imguri) {
+    return 
+    
+    
+    Padding(
         padding: EdgeInsets.all(10.0),
         child: InkWell(
           onTap: () {
@@ -74,7 +107,7 @@ class _HorizonPartState extends State<HorizonPart> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.0),
                    image: DecorationImage(
-                        image: NetworkImage(imgurl), fit: BoxFit.cover)),
+                        image: NetworkImage(document['img_url']), fit: BoxFit.cover)),
               ),
               //make the shade a bit deeper.
               Container(
@@ -128,7 +161,7 @@ class _HorizonPartState extends State<HorizonPart> {
                 left: 20.0,
                 child: Container(
                   width: 220.0,
-                  child: Text(title,
+                  child: Text(document['title'],
                       style: TextStyle(
                         //  fontFamily: 'Opensans',
                           fontSize: 55.0,
@@ -197,7 +230,7 @@ class _HorizonPartState extends State<HorizonPart> {
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20.0),
                               image: DecorationImage(
-                                  image: NetworkImage(imguri),
+                                  image: NetworkImage(document['chf_img_url']),
                                   fit: BoxFit.cover)),
                         ),
                   /*      Positioned(
@@ -217,11 +250,8 @@ class _HorizonPartState extends State<HorizonPart> {
                         )  */
                       ],
                     )
-                  )])
+                        )])));}
                         
-                    )
-                  
-            
-          
-            );}
+                    
+        
         

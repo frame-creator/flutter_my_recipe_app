@@ -1,78 +1,3 @@
-/*
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-        appBar: new AppBar(
-          title: Text('레시피 검색'),
-        ),
-        body: ListView(children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: TextField(
-              onChanged: (val) {
-                initiateSearch(val);
-              },
-              decoration: InputDecoration(
-                  prefixIcon: IconButton(
-                    color: Colors.black,
-                    icon: Icon(Icons.arrow_back),
-                    iconSize: 20.0,
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                  contentPadding: EdgeInsets.only(left: 25.0),
-                  hintText: '레시피검색하기',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.0))),
-            ),
-          ),
-          SizedBox(height: 10.0),
-          GridView.count(
-              padding: EdgeInsets.only(left: 10.0, right: 10.0),
-              crossAxisCount: 2,
-              crossAxisSpacing: 4.0,
-              mainAxisSpacing: 4.0,
-              primary: false,
-              shrinkWrap: true,
-              children: tempSearchStore.map((element) {
-                return buildResultCard(element);
-              }).toList())
-        ]));
-  }
-}
-
-Widget buildResultCard(data) {
-  return Card(
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-    elevation: 2.0,
-    child: Container(
-      child: Center(
-        child: Text(data['title'],
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          color: Colors.black,
-          fontSize: 20.0,
-        ),
-        )
-      )
-    )
-  );
-}
-
-
-class SearchService {
-  searchByName(String val) {
-    return Firestore.instance
-        .collection('posts')
-        .where('searchinfo',
-            isEqualTo: val)
-        .getDocuments();
-  }
-}
-
-*/
-//import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -94,18 +19,27 @@ class _SearchPageState extends State<SearchPage> {
     return MaterialApp(
       home: Scaffold(
         appBar: PreferredSize( 
-          preferredSize: Size.fromHeight(70),
+          preferredSize: Size.fromHeight(90),
           child: AppBar(
           backgroundColor: Colors.red[200],
-          elevation: 20,
+          elevation: 30,
          title:
-           Container(
+           Column(
+             mainAxisAlignment: MainAxisAlignment.end,
+             children: <Widget> [
+               SizedBox(
+                 height: 20
+               ),
+               Container(
               
-              margin: EdgeInsets.all(10),
-              child: TextField(
+              margin: EdgeInsets.all(5),
+              child: Padding(
+                padding: EdgeInsets.all(5),
+                child:TextField(
            decoration: InputDecoration(
+                    focusColor: Colors.red[200],
                     border: InputBorder.none,
-                    contentPadding: EdgeInsets.all(25.0),
+                    contentPadding: EdgeInsets.only(top:5.0),
                     hintText: '검색할 레시피를 입력해주세요.',
                     hintStyle:
                         TextStyle(fontFamily: 'Cute', fontSize: 30.0),
@@ -116,6 +50,9 @@ class _SearchPageState extends State<SearchPage> {
             onChanged: (val) => initiateSearch(val),
           ),
           ),
+          ),
+           ]
+           )
           )
         ),
         body: 

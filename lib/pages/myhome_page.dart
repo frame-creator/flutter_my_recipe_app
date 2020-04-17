@@ -10,21 +10,19 @@ import 'package:recipe_app/widgets/animated_text.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:recipe_app/pages/detail_page.dart';
-//import 'package:recipe_app/pages/bookmark_page.dart';
-//import 'package:recipe_app/pages/login_page.dart';
-import 'package:recipe_app/pages/emailsender_page.dart';
+
 import 'package:recipe_app/pages/mailer_page.dart';
+import 'package:recipe_app/pages/recommand_page.dart';
+import 'package:recipe_app/pages/month_page.dart';
 
 
-//import 'package:recipe_app/widgets/food_listpage.dart';
 
 
 
 
-import 'package:recipe_app/widgets/senddata.dart';
-//import 'package:recipe_app/provider/provider_data.dart';
-//import 'package:recipe_app/provider/provider.dart';
+//import 'package:recipe_app/widgets/senddata.dart';
 
+import 'package:recipe_app/widgets/progressindicator.dart';
 
 
 
@@ -390,8 +388,16 @@ void dispose() {
                         style: TextStyle(
                             fontFamily: 'Cute', 
                             fontSize: 40.0)),
+                   InkWell(
+          onTap: () {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => RecommandPage()));
+                //DetailPage(document)));
+          }, child : SizedBox(
+            child:
                     Text('전체보기',
-                        style: TextStyle(color: Colors.black54, fontSize: 30.0))
+                        style: TextStyle(color: Colors.black54, fontSize: 30.0))),
+                   ),
                   ],
                 ),),
 
@@ -430,7 +436,7 @@ void dispose() {
                     itemBuilder:(BuildContext context, int index){
                     //  DocumentSnapshot recipepost = snapshot.data.documents[index];
                     if (!snapshot.hasData) {
-                   return Center(child :Text ('로딩중'));
+                   return  MyProgressIndicator();
                     }
                     
            //     List<DocumentSnapshot> get documents
@@ -441,22 +447,7 @@ void dispose() {
                   
                   
                   }  
-              /*  scrollDirection: Axis.horizontal,
-                children: <Widget>[
-                  _buildCard(
-                      '시금치나물', '4.1','https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg','https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg'),
-                      //'assets/mountain.jpg'),
-                  _buildCard(
-                      '부추무침', '3.8', 'https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg','https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg'),
-                   _buildCard(
-                      '파스타알리오', '4.1','https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg','https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg'),
-                      //'assets/mountain.jpg'),
-                  _buildCard(
-                      '숙주무침', '3.8', 'https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg','https://i.pinimg.com/564x/e3/54/e9/e354e97bf5d17326c3c361d884707e2c.jpg'),
-
-                      //'assets/kathmandu.jpg')
-                ],
-              ),*/
+              
 
             ))
           ;}
@@ -504,12 +495,21 @@ void dispose() {
           Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text('금주의 레시피',
+                    Text('이달의 레시피',
                         style: TextStyle(
                             fontFamily: 'Cute', 
                             fontSize: 40.0)),
+                            
+                    InkWell(
+          onTap: () {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => MonthPage()));
+                //DetailPage(document)));
+          }, child : SizedBox(
+            child:
                     Text('전체보기',
-                        style: TextStyle(color: Colors.black54, fontSize: 30.0))
+                        style: TextStyle(color: Colors.black54, fontSize: 30.0))),
+                   ),
                   ],
                 ),),
                 //),
@@ -549,7 +549,7 @@ void dispose() {
                     itemBuilder:(BuildContext context, int index){
                     //  DocumentSnapshot recipepost = snapshot.data.documents[index];
                     if (!snapshot.hasData) {
-                   return Center(child :Text ('로딩중'));
+                   return  MyProgressIndicator();
                     }
                     
            //     List<DocumentSnapshot> get documents
@@ -727,7 +727,7 @@ void dispose() {
                     itemBuilder:(BuildContext context, int index){
                     //  DocumentSnapshot recipepost = snapshot.data.documents[index];
                     if (!snapshot.hasData) {
-                   return Center(child :Text ('로딩중'));
+                   return  MyProgressIndicator();
                     }
                     
            //     List<DocumentSnapshot> get documents
@@ -778,7 +778,7 @@ void dispose() {
                     itemBuilder:(BuildContext context, int index){
                     //  DocumentSnapshot recipepost = snapshot.data.documents[index];
                     if (!snapshot.hasData) {
-                   return Center(child :Text ('로딩중'));
+                   return  MyProgressIndicator();
                     }
                     
            //     List<DocumentSnapshot> get documents
@@ -825,7 +825,7 @@ void dispose() {
                     itemBuilder:(BuildContext context, int index){
                     //  DocumentSnapshot recipepost = snapshot.data.documents[index];
                     if (!snapshot.hasData) {
-                   return Center(child :Text ('로딩중'));
+                   return  MyProgressIndicator();
                     }
                     
            //     List<DocumentSnapshot> get documents
@@ -873,7 +873,7 @@ void dispose() {
                     itemBuilder:(BuildContext context, int index){
                     //  DocumentSnapshot recipepost = snapshot.data.documents[index];
                     if (!snapshot.hasData) {
-                   return Center(child :Text ('로딩중'));
+                   return  MyProgressIndicator();
                     }
                     
            //     List<DocumentSnapshot> get documents
