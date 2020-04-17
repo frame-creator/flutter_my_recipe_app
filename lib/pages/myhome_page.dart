@@ -12,7 +12,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:recipe_app/pages/detail_page.dart';
 //import 'package:recipe_app/pages/bookmark_page.dart';
 //import 'package:recipe_app/pages/login_page.dart';
-
+import 'package:recipe_app/pages/emailsender_page.dart';
+import 'package:recipe_app/pages/mailer_page.dart';
 
 
 //import 'package:recipe_app/widgets/food_listpage.dart';
@@ -174,13 +175,18 @@ void dispose() {
            //  ),  
             
            ),
-           SizedBox(
+          InkWell(
+          onTap: () {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => MailerPage()));
+                //DetailPage(document)));
+          }, child : SizedBox(
               child: Text('문의하기',
               textAlign: TextAlign.left,
               style: TextStyle(color: Colors.black87, fontSize: 40, fontWeight: FontWeight.bold
                ), 
         )   
-           ),
+           ),),
            Expanded(
              child: Image.network('https://images.unsplash.com/photo-1506458961255-571f40df5aad?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60)' ,fit: BoxFit.cover)
            )
