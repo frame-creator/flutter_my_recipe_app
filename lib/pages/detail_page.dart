@@ -26,7 +26,7 @@ Widget buildContainer(Widget child) {
         // border: Border.all(color: Colors.grey),
         borderRadius:
         // BorderRadius.circular(35),
-        BorderRadius.only(bottomLeft: Radius.circular(35)),
+        BorderRadius.only(bottomLeft: Radius.circular(50)),
         boxShadow: [
           BoxShadow(
               color: Colors.red[50],
@@ -78,10 +78,10 @@ class _DetailPageState extends State<DetailPage> {
                       Stack(children: <Widget>[
                      
                       Container(
-                        height: MediaQuery.of(context).size.height ,
+                        height: MediaQuery.of(context).size.height + 20,
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(35.0)),
+                          //  borderRadius: BorderRadius.only(
+                          //      bottomLeft: Radius.circular(35.0)),
                            //     bottomRight: Radius.circular(35.0)
                            boxShadow: [
                            BoxShadow(
@@ -91,11 +91,28 @@ class _DetailPageState extends State<DetailPage> {
                             blurRadius: 1.0)],
                            
                             color: Colors.white),
-                      ),Container(
+                      ),
+                      Container(
+                        height: MediaQuery.of(context).size.height ,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(50.0)),
+                           //     bottomRight: Radius.circular(35.0)
+                           boxShadow: [
+                           BoxShadow(
+                           color: Colors.red[50],
+                            offset: Offset(-4.0, 6.0),
+                            spreadRadius: 4.0,
+                            blurRadius: 1.0)],
+                           
+                            color: Colors.white),
+                      ),
+                      
+                      Container(
                         height: MediaQuery.of(context).size.height - 270.0,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(35.0)),
+                                bottomLeft: Radius.circular(50.0)),
                            //     bottomRight: Radius.circular(35.0)
                            boxShadow: [
                            BoxShadow(
@@ -174,7 +191,7 @@ class _DetailPageState extends State<DetailPage> {
                 Padding(
                   padding: const EdgeInsets.only(left:15.0),
                   child: Container(
-                    width: MediaQuery.of(context).size.width - 35.0,
+                    width: MediaQuery.of(context).size.width - 15.0,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
@@ -183,11 +200,12 @@ class _DetailPageState extends State<DetailPage> {
                           children: <Widget>[
                             Row(
                               children: <Widget>[
-                                Icon(Icons.restaurant, size: 20.0, color: Colors.red[200]),
+                                Icon(Icons.restaurant, size: 40.0, color: Colors.red[200]),
+                                SizedBox(width: 5),
                                 Text(widget.document['title'],
                                 style: TextStyle(
                                   fontFamily: 'Cute',
-                                  fontSize: 50.0,
+                                  fontSize: 53.0,
                                   color: Colors.black87
                                 ),
                                 )
@@ -200,10 +218,10 @@ class _DetailPageState extends State<DetailPage> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                            Container(
-                            height: 40.0,
-                            width: 40.0,
+                            height: 50.0,
+                            width: 50.0,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20.0),
+                                borderRadius: BorderRadius.circular(100.0),
                                 color: Color(0xFFFE7050)),
                             child: Center(
                               child: Text('쉐프',
@@ -215,10 +233,10 @@ class _DetailPageState extends State<DetailPage> {
 
                        // Container(height: 40.0, width: 100.0),
                         Container(
-                          height: 40.0,
-                          width: 40.0,
+                          height: 50.0,
+                          width: 50.0,
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20.0),
+                              borderRadius: BorderRadius.circular(100.0),
                               image: DecorationImage(
                                   image: NetworkImage(widget.document['chef_img_url']),
                                   fit: BoxFit.cover)),
@@ -252,14 +270,18 @@ class _DetailPageState extends State<DetailPage> {
                   child: Row(
                   children: <Widget>[
                     
-                          SizedBox(width: 25.0),
-                    Text(widget.document['blog'],
+                          SizedBox(width: 5.0),
+                    Container(
+                    width: MediaQuery.of(context).size.width-20,        
+                    child:Padding(
+                      padding: EdgeInsets.all(3),
+                      child:Text(widget.document['blog'],
                         style: TextStyle(
                             fontFamily: 'Opensans',
-                            fontSize: 15.0,
+                            fontSize: 17.0,
                             color: Color(0xFF6A6A6A),
                            // fontWeight: FontWeight.w600
-                            )),
+                            )),),),
                     SizedBox(width: 25.0),
                    
                     SizedBox(width: 10.0),
@@ -365,7 +387,7 @@ class _DetailPageState extends State<DetailPage> {
                                               BorderRadius.circular(30.0)),
                                     ),
                                     title: Text(getItem[index],
-                                        style: TextStyle(fontSize: 30)),
+                                        style: TextStyle(fontSize: 40)),
                                   ),
                                   //    ClipRRect(
                                   //       borderRadius: BorderRadius.circular(16.0),
@@ -413,10 +435,10 @@ class _DetailPageState extends State<DetailPage> {
                                 backgroundColor: Colors.red[300],
                                 child: Text('${(index + 1)}',
                                     style: TextStyle(
-                                        color: Colors.white, fontSize: 20)),
+                                        color: Colors.white, fontSize: 30)),
                               ),
                               title: Text(getSteps[index],
-                                  style: TextStyle(fontSize: 30)),
+                                  style: TextStyle(fontSize: 35)),
                             ),
                             ClipRRect(
                               borderRadius: BorderRadius.circular(16.0),
@@ -448,7 +470,7 @@ class _DetailPageState extends State<DetailPage> {
         // border: Border.all(color: Colors.grey),
         borderRadius:
         // BorderRadius.circular(35),
-        BorderRadius.only(bottomLeft: Radius.circular(35)),
+        BorderRadius.only(bottomLeft: Radius.circular(50),topLeft: Radius.circular(50)),
         boxShadow: [
           BoxShadow(
               color: Colors.red[50],
@@ -460,8 +482,9 @@ class _DetailPageState extends State<DetailPage> {
     padding: EdgeInsets.all(20),
     //  height: 5000,
     // width: 300,
-    child: Text('저작자의 사전 동의 없이 이미지 및 문구의 무단 도용 및 복제를 금합니다.', style: TextStyle(fontSize: 30),)
-  )
+    child: Text('저작자의 사전 동의 없이 이미지 및 문구의 무단 도용 및 복제를 금합니다.', style: TextStyle(fontSize: 35, color: Colors.black),)
+  ),
+  SizedBox(height: 15)
                   ]
                   )
                   ]
